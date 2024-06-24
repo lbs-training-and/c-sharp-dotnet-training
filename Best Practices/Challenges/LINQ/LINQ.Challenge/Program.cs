@@ -1,0 +1,2 @@
+﻿// See https://aka.ms/new-console-template for more information
+Console.WriteLine("This program is not designed for normal execution. To complete the challenge, finish the methods to satisfy all tests using the test explorer.");
