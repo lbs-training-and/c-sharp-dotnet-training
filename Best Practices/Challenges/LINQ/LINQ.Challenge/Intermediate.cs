@@ -9,7 +9,7 @@ public class Intermediate
     /// <returns>The smallest integer value in the collection.</returns>
     public int GetSmallestValue(IEnumerable<int> numbers)
     {
-        throw new NotImplementedException();
+        return numbers.Min();
     }
 
     /// <summary>
@@ -19,7 +19,7 @@ public class Intermediate
     /// <returns>An array of even integers from the collection.</returns>
     public int[] GetArrayOfEvenNumbers(IEnumerable<int> numbers)
     {
-        throw new NotImplementedException();
+        return numbers.Where(n => n % 2 == 0).ToArray();
     }
 
     /// <summary>
@@ -29,7 +29,7 @@ public class Intermediate
     /// <returns>A list of integers ordered in ascending order.</returns>
     public List<int> GetListOfOrderedNumbersAscending(IEnumerable<int> numbers)
     {
-        throw new NotImplementedException();
+        return numbers.OrderBy(n => n).ToList();
     }
 
     /// <summary>
@@ -39,7 +39,7 @@ public class Intermediate
     /// <returns>A list of integers ordered in descending order.</returns>
     public List<int> GetListOfOrderedNumbersDescending(IEnumerable<int> numbers)
     {
-        throw new NotImplementedException();
+        return numbers.OrderByDescending(n => n).ToList();
     }
 
     /// <summary>
@@ -49,7 +49,7 @@ public class Intermediate
     /// <returns>A list of unique integers from the collection.</returns>
     public List<int> GetListOfUniqueNumbers(IEnumerable<int> numbers)
     {
-        throw new NotImplementedException();
+        return numbers.Distinct().ToList();
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class Intermediate
     /// <returns>The sum of all odd integers in the collection.</returns>
     public int GetValueOfAllOddNumbers(IEnumerable<int> numbers)
     {
-        throw new NotImplementedException();
+        return numbers.Where(n => n % 2 != 0).Sum();
     }
 
     /// <summary>
@@ -71,6 +71,6 @@ public class Intermediate
     /// <returns>An enumerable collection of integers representing the specified page of items.</returns>
     public IEnumerable<int> GetPagedItems(IEnumerable<int> items, int pageNumber, int pageSize)
     {
-        throw new NotImplementedException();
+        return items.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
     }
 }

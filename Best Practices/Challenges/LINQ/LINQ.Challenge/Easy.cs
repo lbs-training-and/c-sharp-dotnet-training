@@ -1,4 +1,5 @@
-﻿using LINQ.Challenge.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using LINQ.Challenge.Models;
 
 namespace LINQ.Challenge;
 
@@ -12,7 +13,7 @@ public class Easy
     /// <returns>The Person object with the specified Id.</returns>
     public Person GetPersonById(IEnumerable<Person> people, int id)
     {
-        throw new NotImplementedException();
+        return people.SingleOrDefault(p => p.Id == id);
     }
 
     /// <summary>
@@ -23,7 +24,7 @@ public class Easy
     /// <returns>A list of Person objects who were born in the specified year.</returns>
     public List<Person> GetListOfPersonsBornInYear(IEnumerable<Person> people, int year)
     {
-        throw new NotImplementedException();
+        return people.Where(p => p.DateOfBirth.Year == year).ToList();
     }
 
     /// <summary>
@@ -34,7 +35,7 @@ public class Easy
     /// <returns>True if any person in the collection was born in the specified year; otherwise, false.</returns>
     public bool ListContainsBirthYear(IEnumerable<Person> people, int year)
     {
-        throw new NotImplementedException();
+        return people.Any(p => p.DateOfBirth.Year == year);
     }
 
     /// <summary>
@@ -44,7 +45,7 @@ public class Easy
     /// <returns>The date of birth of the oldest person in the collection.</returns>
     public DateTime GetOldestPersonDateOfBirth(IEnumerable<Person> people)
     {
-        throw new NotImplementedException();
+        return people.OrderBy(p => p.DateOfBirth).FirstOrDefault().DateOfBirth;
     }
 
     /// <summary>
@@ -54,6 +55,6 @@ public class Easy
     /// <returns>The date of birth of the youngest person in the collection.</returns>
     public DateTime GetYoungestPersonDateOfBirth(IEnumerable<Person> people)
     {
-        throw new NotImplementedException();
+        return people.OrderByDescending(p => p.DateOfBirth).FirstOrDefault().DateOfBirth;
     }
 }

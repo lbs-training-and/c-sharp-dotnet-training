@@ -12,7 +12,8 @@ public class Hard
     /// <returns>The Person object with the highest Id.</returns>
     public Person GetPersonWithHigestId(IEnumerable<Person> people)
     {
-        throw new NotImplementedException();
+        //return people.OrderByDescending(p => p.Id).FirstOrDefault();
+        return people.MaxBy(p => p.Id);
     }
 
     /// <summary>
@@ -22,7 +23,10 @@ public class Hard
     /// <returns>A list of lists, where each inner list contains Person objects that share the same last name.</returns>
     public List<List<Person>> ListOfPeopleGroupedByLastName(IEnumerable<Person> people)
     {
-        throw new NotImplementedException();
+        return people
+            .GroupBy(p => p.LastName)
+            .Select(p => p.ToList())
+            .ToList();
     }
 
     /// <summary>
@@ -34,7 +38,17 @@ public class Hard
     /// <returns>A list of PersonDto objects created by joining the Person and Address collections.</returns>
     public List<PersonDto> JoinPeopleAndAddresses(IEnumerable<Person> people, IEnumerable<Address> addresses)
     {
-        throw new NotImplementedException();
+        return people.Join(addresses, p => p.AddressId, a => a.Id, (p, a) => new PersonDto {
+            FirstName = p.FirstName,
+            LastName = p.LastName,
+            DateOfBirth = p.DateOfBirth,
+            Address = new AddressDto {
+                StreetName = a.StreetName,
+                City = a.City,
+                PostalCode = a.PostalCode,
+                Country = a.Country
+            }
+        }).ToList();
     }
 
     /// <summary>
@@ -45,7 +59,14 @@ public class Hard
     /// <returns>A list of unique PersonDto objects converted from the provided Person collection.</returns>
     public List<PersonDto> GetUniquePeopleAsDto(IEnumerable<Person> people)
     {
-        throw new NotImplementedException();
+        return people
+            .Distinct()
+            .Select(p => new PersonDto {
+                FirstName = p.FirstName,
+                LastName = p.LastName,
+                DateOfBirth = p.DateOfBirth,
+                Address = new AddressDto()
+            }).ToList();
     }
 
     /// <summary>
@@ -56,6 +77,10 @@ public class Hard
     /// <returns>A list of unique first names of people older than the specified age, ordered alphabetically.</returns>
     public List<string> GetUniqueOrderedFirstNamesOfPeopleOverAge(IEnumerable<Person> people, int age)
     {
-        throw new NotImplementedException();
+        return people
+            .Where(p => DateTime.Today.Year - p.DateOfBirth.Year > age)
+            .Select(p => p.FirstName)
+            .Distinct()
+            .OrderBy(p => p).ToList();
     }
 }
