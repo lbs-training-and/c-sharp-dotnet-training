@@ -1,4 +1,6 @@
-﻿namespace DI.Challenge
+﻿using DI.Challenge.Services.Interfaces;
+
+namespace DI.Challenge
 {
     /// <summary>
     /// This part involves working with multiple implementations of the ISingletonService interface.
@@ -9,13 +11,19 @@
     /// </summary>
     public class Part05
     {
-        public Part05(object fix)
+        private readonly IEnumerable<ISingletonService> _singletonServices;
+
+        public Part05(IEnumerable<ISingletonService> singletonServices)
         {
+            _singletonServices = singletonServices;
         }
 
         public void ExecuteAll()
         {
-            throw new NotImplementedException();
+            foreach (var service in _singletonServices)
+            {
+                service.DoSingletonStuff();
+            }
         }
     }
 }

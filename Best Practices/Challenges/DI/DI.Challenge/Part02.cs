@@ -1,4 +1,7 @@
-﻿namespace DI.Challenge
+﻿using DI.Challenge.Services;
+using DI.Challenge.Services.Interfaces;
+
+namespace DI.Challenge
 {
     /// <summary>
     /// This part involves creating a class that depends on ISingletonService.
@@ -9,13 +12,16 @@
     /// </summary>
     public class Part02
     {
-        public Part02(object fix)
+        private readonly ISingletonService _singletonService;
+        
+        public Part02(ISingletonService singletonService)
         {
+            _singletonService = singletonService;
         }
 
         public string Execute()
         {
-            throw new NotImplementedException();
+            return _singletonService.DoSingletonStuff();
         }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace DI.Challenge
+﻿using DI.Challenge.Services;
+using DI.Challenge.Services.Interfaces;
+
+namespace DI.Challenge
 {
     /// <summary>
     /// This part involves registering ISingletonService, IScopedService and ITransientService 
@@ -19,7 +22,9 @@
             Host.CreateDefaultBuilder(args)
                 .ConfigureServices((context, services) =>
                 {
-                    // Register Services Here
+                    services.AddSingleton<ISingletonService, SingletonService>();
+                    services.AddScoped<IScopedService, ScopedService>();
+                    services.AddTransient<ITransientService, TransientService>();
                 });
     }
 }

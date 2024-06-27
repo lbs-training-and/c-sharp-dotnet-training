@@ -1,4 +1,5 @@
-﻿using DI.Challenge.Services.Interfaces;
+﻿using DI.Challenge.Services;
+using DI.Challenge.Services.Interfaces;
 
 namespace DI.Challenge
 {
@@ -20,6 +21,8 @@ namespace DI.Challenge
                 .ConfigureServices((context, services) =>
                 {
                     // Register Services Here
+                    services.AddKeyedSingleton<ISingletonService, SingletonService>("SingletonA");
+                    services.AddKeyedSingleton<ISingletonService, SingletonService>("SingletonB");
                 });
 
     }
