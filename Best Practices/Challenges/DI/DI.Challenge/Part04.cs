@@ -3,7 +3,7 @@
 namespace DI.Challenge
 {
     /// <summary>
-    /// This part involves registering SingletonA and SingletonB as implementations of IMultipleSingleton.
+    /// This part involves registering SingletonA and SingletonB as implementations of ISingletonService.
     /// The class should:
     ///     * Configure dependency injection to register SingletonA and SingletonB.
     ///     * Ensure both SingletonA and SingletonB are registered as singletons.

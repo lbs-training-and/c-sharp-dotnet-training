@@ -49,7 +49,7 @@ ___
 
 ### Part04
 
-Objective: Register multiple implementations of IMultipleSingleton.
+Objective: Register multiple implementations of ISingletonService.
 
 Instructions:
 * Register SingletonA and SingletonB as singletons.
