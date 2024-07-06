@@ -16,8 +16,8 @@ public class Part04Tests
         
         // Act
 
-        var services1 = webApplicationFactory.Services.GetServices<IEnumerable<INotificationService>>();
-        var services2 = webApplicationFactory.Services.GetServices<IEnumerable<INotificationService>>();
+        var services1 = webApplicationFactory.Services.GetServices<INotificationService>();
+        var services2 = webApplicationFactory.Services.GetServices<INotificationService>();
         
         // Assert
 

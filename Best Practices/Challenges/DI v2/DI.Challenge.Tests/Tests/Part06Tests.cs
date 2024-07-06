@@ -10,16 +10,17 @@ namespace DI.Challenge.Tests.Tests;
 public class Part06Tests
 {
     [Test]
-    public void SingletonConsumerServiceIsRegistered()
+    public void ConsumerServiceIsRegistered()
     {
         // Arrange
         
         var webApplicationFactory = new WebApplicationFactory<Program>();
+        using var scope = webApplicationFactory.Services.CreateScope();
         
         // Act
         
-        var service1 = webApplicationFactory.Services.GetService<IConsumerService>();
-        var service2 = webApplicationFactory.Services.GetService<IConsumerService>();
+        var service1 = scope.ServiceProvider.GetService<IConsumerService>();
+        var service2 = scope.ServiceProvider.GetService<IConsumerService>();
         
         // Assert
 
@@ -27,7 +28,7 @@ public class Part06Tests
     }
     
     [Test]
-    public void SingletonConsumerService_ConsumesSingletonService()
+    public void ConsumerService_DependsOnServices()
     {
         // Arrange
 
@@ -35,21 +36,21 @@ public class Part06Tests
         var mockSingletonService = new Mock<ISingletonService>();
         var mockScopedService = new Mock<IScopedService>();
         var mockTransientService = new Mock<ITransientService>();
-        var webApplicationFactory = new WebApplicationFactory<Program>();
-
-        webApplicationFactory.WithWebHostBuilder(b =>
+        var webApplicationFactory = new WebApplicationFactory<Program>().WithWebHostBuilder(b =>
         {
             b.ConfigureServices(sc =>
             {
                 sc.Replace(ServiceDescriptor.Singleton(mockSingletonService.Object));
-                sc.Replace(ServiceDescriptor.Singleton(mockScopedService.Object));
-                sc.Replace(ServiceDescriptor.Singleton(mockTransientService.Object));
+                sc.Replace(ServiceDescriptor.Scoped(_ => mockScopedService.Object));
+                sc.Replace(ServiceDescriptor.Transient(_ => mockTransientService.Object));
             });
         });
         
+        using var scope = webApplicationFactory.Services.CreateScope();
+        
         // Act
 
-        var service = webApplicationFactory.Services.GetRequiredService<ISingletonConsumerService>();
+        var service = scope.ServiceProvider.GetRequiredService<IConsumerService>();
         
         service.DoWork(work);
         

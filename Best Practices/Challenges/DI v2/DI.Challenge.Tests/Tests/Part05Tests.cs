@@ -33,9 +33,7 @@ public class Part05Tests
 
         var work = new object();
         var mockSingletonService = new Mock<ISingletonService>();
-        var webApplicationFactory = new WebApplicationFactory<Program>();
-
-        webApplicationFactory.WithWebHostBuilder(b =>
+        var webApplicationFactory = new WebApplicationFactory<Program>().WithWebHostBuilder(b =>
         {
             b.ConfigureServices(sc =>
             {

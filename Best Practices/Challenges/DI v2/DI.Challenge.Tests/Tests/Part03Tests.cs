@@ -19,11 +19,12 @@ public class Part03Tests
         
         var service1 = scope.ServiceProvider.GetService<IScopedService>();
         var service2 = scope.ServiceProvider.GetService<IScopedService>();
-        var service3 = webApplicationFactory.Services.GetService<IScopedService>();
+        var service3Action = () => webApplicationFactory.Services.GetService<IScopedService>();
         
         // Assert
 
-        service1.Should().NotBeNull().And.Be(service2).And.NotBe(service3);
+        service1.Should().NotBeNull().And.Be(service2);
+        service3Action.Should().Throw<InvalidOperationException>();
     }
     
     [Test]
