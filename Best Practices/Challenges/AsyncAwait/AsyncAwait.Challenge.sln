@@ -5,6 +5,8 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwait.Challenge", "AsyncAwait.Challenge\AsyncAwait.Challenge.csproj", "{DA63DBF3-16A6-4592-B01D-79826A0C0B7A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AsyncAwait.Challenge.Tests", "AsyncAwait.Challenge.Tests\AsyncAwait.Challenge.Tests.csproj", "{685177FA-EF28-4772-A073-0E59A89202CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{DA63DBF3-16A6-4592-B01D-79826A0C0B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA63DBF3-16A6-4592-B01D-79826A0C0B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA63DBF3-16A6-4592-B01D-79826A0C0B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{685177FA-EF28-4772-A073-0E59A89202CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{685177FA-EF28-4772-A073-0E59A89202CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{685177FA-EF28-4772-A073-0E59A89202CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{685177FA-EF28-4772-A073-0E59A89202CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
