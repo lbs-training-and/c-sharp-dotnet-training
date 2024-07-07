@@ -96,7 +96,7 @@ public class Part06Tests
         var result = exercise.Run(orderId, OrderStatus.Dispatched);
 
         var resultTask = result as Task ?? Task.CompletedTask;
-        var awaitResultTask = async () => await resultTask;
+        var awaitResultTask = () => resultTask;
         
         // Assert
         
