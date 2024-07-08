@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refactoring.Challenge", "Refactoring.Challenge\Refactoring.Challenge.csproj", "{A91B0D83-0C30-432D-B017-1E298569ABEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Refactoring.Challenge.Tests", "Refactoring.Challenge.Tests\Refactoring.Challenge.Tests.csproj", "{70869B00-9945-4075-80BD-1EFD0496A64D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A91B0D83-0C30-432D-B017-1E298569ABEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A91B0D83-0C30-432D-B017-1E298569ABEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A91B0D83-0C30-432D-B017-1E298569ABEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A91B0D83-0C30-432D-B017-1E298569ABEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70869B00-9945-4075-80BD-1EFD0496A64D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70869B00-9945-4075-80BD-1EFD0496A64D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70869B00-9945-4075-80BD-1EFD0496A64D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70869B00-9945-4075-80BD-1EFD0496A64D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
