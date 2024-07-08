@@ -4,7 +4,7 @@ using AsyncAwait.Challenge.Models;
 namespace AsyncAwait.Challenge;
 
 /// <summary>
-/// This part involves awaiting an async method.
+/// This part involves initiating and awaiting an async method.
 /// The Run method should:
 ///     * Return a type of Task.
 ///     * Be marked as async.

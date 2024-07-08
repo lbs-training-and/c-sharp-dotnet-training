@@ -10,8 +10,8 @@ namespace AsyncAwait.Challenge;
 ///     * Get the order using the id.
 ///     * If the order is null, throw a OrderNotFoundException.
 ///     * If the order is not null:
-///         Update its status to the supplied.
-///         Send a notification from all the INotificationService objects and await the completion before invoking the next.
+///       * Update its status to the supplied.
+///       * Send a notification from all the INotificationService objects and await the completion before invoking the next.
 /// </summary>
 public class Part06
 {

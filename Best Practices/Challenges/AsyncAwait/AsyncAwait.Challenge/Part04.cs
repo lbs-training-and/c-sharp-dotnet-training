@@ -3,7 +3,7 @@ using AsyncAwait.Challenge.Interfaces;
 namespace AsyncAwait.Challenge;
 
 /// <summary>
-/// This part involves calling, but not awaiting an async method that returns an object.
+/// This part involves initiating, but not awaiting an async method that returns an object.
 /// The Run method should:
 ///     * Return a type of Task{Order}.
 ///     * Return the task from IOrderRepository.GetAsync() method.

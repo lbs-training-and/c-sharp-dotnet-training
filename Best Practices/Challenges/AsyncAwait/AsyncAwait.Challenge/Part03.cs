@@ -3,7 +3,7 @@ using AsyncAwait.Challenge.Interfaces;
 namespace AsyncAwait.Challenge;
 
 /// <summary>
-/// This part involves calling, awaiting and returning the response from an async method.
+/// This part involves initiating, awaiting and returning the response from an async method.
 /// The Run method should:
 ///     * Return a type of Task{Order}.
 ///     * Be marked as async.

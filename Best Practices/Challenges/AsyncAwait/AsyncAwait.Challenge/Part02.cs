@@ -4,7 +4,7 @@ using AsyncAwait.Challenge.Models;
 namespace AsyncAwait.Challenge;
 
 /// <summary>
-/// This part involves calling, but not awaiting an async method.
+/// This part involves initiating, but not awaiting an async method.
 /// The Run method should:
 ///     * Return a type of Task.
 ///     * Return the task from IOrderRepository.SaveAsync() method.

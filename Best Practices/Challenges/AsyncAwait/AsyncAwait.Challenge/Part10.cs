@@ -3,7 +3,7 @@ using AsyncAwait.Challenge.Interfaces;
 namespace AsyncAwait.Challenge;
 
 /// <summary>
-/// This part involves concurrently running multiple async methods and returning the result of the fastest.
+/// This part involves concurrently running multiple async methods and returning the result from which completed first.
 /// The Run method should:
 ///     * Make each racer race concurrently.
 ///     * Return the result of the racer that finished first.
