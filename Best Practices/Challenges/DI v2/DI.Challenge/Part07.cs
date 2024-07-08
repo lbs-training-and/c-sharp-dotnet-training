@@ -1,7 +1,7 @@
 namespace DI.Challenge;
 
 /// <summary>
-/// This part involves taking a dependency.
+/// This part involves taking a dependency on multiple implementations of a type.
 /// The registration should:
 ///     * Register the OrderService using the IOrderService type as a scoped lifetime.
 ///     * Take a dependency on all implementations of INotificationService.

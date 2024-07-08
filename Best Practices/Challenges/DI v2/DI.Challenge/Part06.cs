@@ -1,7 +1,7 @@
 namespace DI.Challenge;
 
 /// <summary>
-/// This part involves taking a dependency.
+/// This part involves taking a dependency on multiple types.
 /// The registration should:
 ///     * Register the ConsumerService using the IConsumerService type as a transient.
 ///     * Take a dependency on the ISingletonService, IScopedService and ITransientService through the constructor.
