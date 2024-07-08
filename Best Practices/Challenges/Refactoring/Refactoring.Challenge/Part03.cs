@@ -21,7 +21,7 @@ public class Part03
     {
         if (maxAttempts > 0)
         {
-            var worked = await _worker.DoWorkAsync();
+            var worked = await _worker.TryWorkAsync();
 
             if (!worked)
             {

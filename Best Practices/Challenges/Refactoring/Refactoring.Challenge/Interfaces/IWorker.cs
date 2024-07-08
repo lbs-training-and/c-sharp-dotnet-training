@@ -2,5 +2,6 @@ namespace Refactoring.Challenge.Interfaces;
 
 public interface IWorker
 {
-    Task<bool> DoWorkAsync();
+    Task<bool> TryWorkAsync();
+    Task Sleep();
 }

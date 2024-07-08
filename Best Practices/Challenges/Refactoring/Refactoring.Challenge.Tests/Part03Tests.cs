@@ -26,7 +26,7 @@ public class Part03Tests
 
         var attempt = 0;
         
-        workerMock.Setup(w => w.DoWorkAsync()).Returns(() =>
+        workerMock.Setup(w => w.TryWorkAsync()).Returns(() =>
         {
             attempt++;
             var worked = attempt == workedOnAttempt;
@@ -41,6 +41,6 @@ public class Part03Tests
 
         hasWorked.Should().Be(expectedHasWorked);
         
-        workerMock.Verify(w => w.DoWorkAsync(), Times.Exactly(workAttemptsUsed));
+        workerMock.Verify(w => w.TryWorkAsync(), Times.Exactly(workAttemptsUsed));
     }
 }
