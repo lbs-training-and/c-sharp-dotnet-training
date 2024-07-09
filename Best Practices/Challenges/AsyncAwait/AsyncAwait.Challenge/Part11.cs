@@ -23,8 +23,25 @@ public class Part11
         _logger = logger;
     }
 
-    public object Run(Order order)
+    public async Task Run(Order order)
     {
-        throw new NotImplementedException();
+        var taskList = new List<Task>();
+
+        foreach (var notificationService in _notificationServices)
+        {
+            taskList.Add(Task.Run(async () =>
+            {
+                try
+                {
+                    await notificationService.SendAsync(order);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Message");
+                }
+            }));
+        }
+
+        await Task.WhenAll(taskList);
     }
 }

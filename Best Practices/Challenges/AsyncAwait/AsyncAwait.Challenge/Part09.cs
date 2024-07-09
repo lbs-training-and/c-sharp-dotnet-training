@@ -22,8 +22,15 @@ public class Part09
         _notificationServices = notificationServices;
     }
 
-    public object Run(Order order)
+    public async Task Run(Order order)
     {
-        throw new NotImplementedException();
+        var taskList = new List<Task>();
+
+        foreach (var notification in _notificationServices)
+        {
+            taskList.Add(notification.SendAsync(order));
+        }
+
+        await Task.WhenAll(taskList);
     }
 }

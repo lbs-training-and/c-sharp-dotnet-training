@@ -1,4 +1,6 @@
+using AsyncAwait.Challenge.Exceptions;
 using AsyncAwait.Challenge.Interfaces;
+using AsyncAwait.Challenge.Models;
 
 namespace AsyncAwait.Challenge;
 
@@ -19,8 +21,14 @@ public class Part05
         _orderRepository = orderRepository;
     }
 
-    public object Run(int id)
+    public async Task Run(int id)
     {
-        throw new NotImplementedException();
+        var orderResult = await _orderRepository.GetAsync(id);
+        if (orderResult is null)
+        {
+            throw new OrderNotFoundException(id);
+        }
+
+        await _orderRepository.DeleteAsync(orderResult);
     }
 }

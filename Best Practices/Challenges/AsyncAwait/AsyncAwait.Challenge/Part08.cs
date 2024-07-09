@@ -23,8 +23,19 @@ public class Part08
         _notificationService2 = notificationService2;
     }
 
-    public object Run(Order order)
+    public async Task Run(Order order)
     {
-        throw new NotImplementedException();
+        //var task1 = _notificationService1.SendAsync(order);
+        //var task2 = _notificationService2.SendAsync(order);
+
+        //await Task.WhenAll(task1, task2);
+
+        var tasks = new List<Task>
+        {
+            _notificationService1.SendAsync(order),
+            _notificationService2.SendAsync(order)
+        };
+
+        await Task.WhenAll(tasks);
     }
 }

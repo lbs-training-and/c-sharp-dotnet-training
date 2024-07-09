@@ -18,8 +18,8 @@ public class Part02
         _orderRepository = orderRepository;
     }
 
-    public object Run(Order order)
+    public Task Run(Order order)
     {
-        throw new NotImplementedException();
+        return _orderRepository.SaveAsync(order);
     }
 }

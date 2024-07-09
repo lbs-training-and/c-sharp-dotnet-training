@@ -1,4 +1,5 @@
 using AsyncAwait.Challenge.Interfaces;
+using AsyncAwait.Challenge.Models;
 
 namespace AsyncAwait.Challenge;
 
@@ -19,8 +20,8 @@ public class Part03
         _orderRepository = orderRepository;
     }
 
-    public object Run(int id)
+    public async Task<Order> Run(int id)
     {
-        throw new NotImplementedException();
+        return (await _orderRepository.GetAsync(id))!;
     }
 }

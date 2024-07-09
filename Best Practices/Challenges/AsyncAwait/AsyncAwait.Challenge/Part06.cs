@@ -1,5 +1,7 @@
 using AsyncAwait.Challenge.Enums;
+using AsyncAwait.Challenge.Exceptions;
 using AsyncAwait.Challenge.Interfaces;
+using AsyncAwait.Challenge.Models;
 
 namespace AsyncAwait.Challenge;
 
@@ -24,8 +26,21 @@ public class Part06
         _notificationServices = notificationServices;
     }
 
-    public object Run(int id, OrderStatus orderStatus)
+    public async Task Run(int id, OrderStatus orderStatus)
     {
-        throw new NotImplementedException();
+        var orderResult = await _orderRepository.GetAsync(id);
+        if (orderResult is null)
+        {
+            throw new OrderNotFoundException(id);
+        }
+
+        orderResult.Status = orderStatus;
+
+        await _orderRepository.SaveAsync(orderResult);
+
+        foreach (var notificationService in _notificationServices)
+        {
+            await notificationService.SendAsync(orderResult);
+        }
     }
 }

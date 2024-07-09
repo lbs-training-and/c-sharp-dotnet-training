@@ -22,8 +22,18 @@ public class Part07
         _logger = logger;
     }
 
-    public object Run(Order order)
+    public async Task Run(Order order)
     {
-        throw new NotImplementedException();
+        foreach (var notification in _notificationServices)
+        {
+            try
+            {
+                await notification.SendAsync(order);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Message");
+            }
+        }
     }
 }

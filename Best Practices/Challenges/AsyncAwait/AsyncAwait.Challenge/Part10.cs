@@ -18,8 +18,17 @@ public class Part10
         _racers = racers;
     }
 
-    public object Run()
+    public async Task<int> Run()
     {
-        throw new NotImplementedException();
+        var taskList = new List<Task<int>>();
+
+        foreach (IRacer racer in _racers)
+        {
+            taskList.Add(racer.Race());
+        }
+
+        var result = await Task.WhenAny(taskList);
+
+        return await result;
     }
 }
