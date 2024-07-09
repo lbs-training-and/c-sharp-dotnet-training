@@ -1,21 +1,17 @@
-﻿namespace DI.Challenge
-{
-    /// <summary>
-    /// This part involves creating a class that depends on SingletonService.
-    /// The class should:
-    ///     * Have a private readonly instance of SingletonService.
-    ///     * Accept the SingletonService instance through the constructor.
-    ///     * Call the SingletonService's DoSingletonStuff method within the Execute method.
-    /// </summary>
-    public class Part01
-    {
-        public Part01(object fix)
-        {
-        }
+namespace DI.Challenge;
 
-        public string Execute()
-        {
-            throw new NotImplementedException();
-        }
+/// <summary>
+/// This part involves registering a singleton class.
+/// The registration should:
+///     * Register the SingletonService class.
+///     * Be registered as itself.
+///     * Not use abstraction as the type.
+///     * Be a singleton.
+/// </summary>
+public static partial class ServiceCollectionExtensions
+{
+    public static void AddPart01(this IServiceCollection serviceCollection)
+    {
+        // Add services here.
     }
 }
