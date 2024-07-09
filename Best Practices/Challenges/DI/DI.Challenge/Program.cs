@@ -1,2 +1,17 @@
-// See https://aka.ms/new-console-template for more information
-Console.WriteLine("This program is not designed for normal execution. To complete the challenge, finish the methods to satisfy all tests using the test explorer.");
+using DI.Challenge;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddPart01();
+builder.Services.AddPart02();
+builder.Services.AddPart03();
+builder.Services.AddPart04();
+builder.Services.AddPart05();
+builder.Services.AddPart06();
+builder.Services.AddPart07();
+
+var app = builder.Build();
+
+app.Run();
+
+public partial class Program;
