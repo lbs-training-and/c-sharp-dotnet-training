@@ -1,67 +1,27 @@
-﻿using Refactoring.Challenge.Interfaces;
-using Refactoring.Challenge.Models;
-
-namespace Refactoring.Challenge;
+﻿namespace Refactoring.Challenge;
 
 /// <summary>
-/// This part involves refactoring a nested if statement.
+/// This part involves refactoring a palindrome check.
 /// The Run method should:
 ///     * Be refactored to use a simpler solution.
 ///     * Not break the existing test.
+///     * NOTE - The reverse of this is sometimes asked in interviews, what is the fastest way to check if a string is a palindrome.
 /// </summary>
 public class Part04
 {
-    private readonly INotificationService _notificationService;
-
-    public Part04(INotificationService notificationService)
+    public bool Run(string text)
     {
-        _notificationService = notificationService;
-    }
-
-    public async Task Run(Order order)
-    {
-        if (order.Status != OrderStatus.Pending)
+        var length = text.Length;
+        var charactersToCheck = length / 2;
+        
+        for (var i = 0; i < charactersToCheck; i++)
         {
-            if (order.Status != OrderStatus.Confirmed)
+            if (text[i] != text[length - i - 1])
             {
-                if (order.Status != OrderStatus.Dispatched)
-                {
-                    if (order.Status != OrderStatus.Delayed)
-                    {
-                        if (order.Status != OrderStatus.Delivered)
-                        {
-                            if (order.Status != OrderStatus.Cancelled)
-                            {
-                                throw new InvalidOperationException();
-                            }
-                            else
-                            {
-                                await _notificationService.SendCancelled();
-                            }
-                        }
-                        else
-                        {
-                            await _notificationService.SendDelivered();
-                        }
-                    }
-                    else
-                    {
-                        await _notificationService.SendDelayed();
-                    }
-                }
-                else
-                {
-                    await _notificationService.SendDispatched();
-                }
-            }
-            else
-            {
-                await _notificationService.SendConfirmed();
+                return false;
             }
         }
-        else
-        {
-            await _notificationService.SendPending();
-        }
+        
+        return true;
     }
 }

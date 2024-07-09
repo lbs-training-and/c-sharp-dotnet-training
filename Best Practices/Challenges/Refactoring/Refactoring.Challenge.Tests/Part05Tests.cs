@@ -1,8 +1,6 @@
-using System.Linq.Expressions;
 using FluentAssertions;
 using Moq;
 using Refactoring.Challenge.Interfaces;
-using Refactoring.Challenge.Models;
 
 namespace Refactoring.Challenge.Tests;
 
@@ -10,32 +8,39 @@ namespace Refactoring.Challenge.Tests;
 public class Part05Tests
 {
     [Test]
-    public async Task CanSleep()
+    [TestCase(5, 1)]
+    [TestCase(5, 3)]
+    [TestCase(5, 5)]
+    [TestCase(5, -1)]
+    [TestCase(1, 1)]
+    public async Task CanAttemptToWork(int maxAttempts, int workedOnAttempt)
     {
         // Arrange
 
-        var mockRepository = new MockRepository(MockBehavior.Loose);
+        var workerMock = new Mock<IWorker>();
 
-        var workerMocks = Enumerable.Range(0, 5)
-            .Select(_ => mockRepository.Create<IWorker>())
-            .ToArray();
+        var expectedHasWorked = workedOnAttempt != -1;
+        var workAttemptsUsed = expectedHasWorked ? workedOnAttempt : maxAttempts;
+        
+        var exercise = new Part05(workerMock.Object);
 
-        foreach (var workerMock in workerMocks)
+        var attempt = 0;
+        
+        workerMock.Setup(w => w.TryWorkAsync()).Returns(() =>
         {
-            workerMock.Setup(w => w.Sleep()).Returns(() => Task.Delay(200));
-        }
+            attempt++;
+            var worked = attempt == workedOnAttempt;
+            return Task.FromResult(worked);
+        });
 
-        var workers = workerMocks.Select(m => m.Object).ToArray();
-        
-        var exercise = new Part05(workers);
-        
         // Act
 
-        await exercise.Run();
+        var hasWorked = await exercise.Run(maxAttempts);
 
         // Assert
 
-        mockRepository.VerifyAll();
-        mockRepository.VerifyNoOtherCalls();
+        hasWorked.Should().Be(expectedHasWorked);
+        
+        workerMock.Verify(w => w.TryWorkAsync(), Times.Exactly(workAttemptsUsed));
     }
 }

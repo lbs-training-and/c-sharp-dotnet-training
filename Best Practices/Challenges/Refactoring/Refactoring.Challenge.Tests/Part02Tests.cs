@@ -1,27 +1,18 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 
-namespace Refactoring.Challenge.Tests;
-
-[TestFixture]
-public class Part02Tests
+namespace Refactoring.Challenge.Tests
 {
-    [Test]
-    [TestCase("toast", false)]
-    [TestCase("programming", false)]
-    [TestCase("radar", true)]
-    [TestCase("hannah", true)]
-    public void CanCheckIfPalindrome(string text, bool expected)
+    [TestFixture]
+    public class Part02Tests
     {
-        // Arrange
+        [Test]
+        public void FindMax_WithValidNumbers_ReturnsMaxValue()
+        {
+            var part = new Part02();
+            var numbers = new List<int> { 1, 2, 3, 4, 5 };
 
-        var exercise = new Part02();
-
-        // Act
-
-        var isPalinedrome = exercise.Run(text);
-
-        // Assert
-
-        isPalinedrome.Should().Be(expected);
+            int result = part.Run(numbers);
+            result.Should().Be(5);
+        }
     }
 }

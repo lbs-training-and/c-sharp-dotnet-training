@@ -1,6 +1,4 @@
 using FluentAssertions;
-using Moq;
-using Refactoring.Challenge.Interfaces;
 
 namespace Refactoring.Challenge.Tests;
 
@@ -8,39 +6,20 @@ namespace Refactoring.Challenge.Tests;
 public class Part03Tests
 {
     [Test]
-    [TestCase(5, 1)]
-    [TestCase(5, 3)]
-    [TestCase(5, 5)]
-    [TestCase(5, -1)]
-    [TestCase(1, 1)]
-    public async Task CanAttemptToWork(int maxAttempts, int workedOnAttempt)
+    public void CanCalculateAverage()
     {
         // Arrange
 
-        var workerMock = new Mock<IWorker>();
+        var numbers = new [] { 1, 5, 10, 11, 3, 6 };
 
-        var expectedHasWorked = workedOnAttempt != -1;
-        var workAttemptsUsed = expectedHasWorked ? workedOnAttempt : maxAttempts;
-        
-        var exercise = new Part03(workerMock.Object);
-
-        var attempt = 0;
-        
-        workerMock.Setup(w => w.TryWorkAsync()).Returns(() =>
-        {
-            attempt++;
-            var worked = attempt == workedOnAttempt;
-            return Task.FromResult(worked);
-        });
+        var exercise = new Part03();
 
         // Act
 
-        var hasWorked = await exercise.Run(maxAttempts);
+        var average = exercise.Run(numbers);
 
         // Assert
 
-        hasWorked.Should().Be(expectedHasWorked);
-        
-        workerMock.Verify(w => w.TryWorkAsync(), Times.Exactly(workAttemptsUsed));
+        average.Should().Be(6);
     }
 }

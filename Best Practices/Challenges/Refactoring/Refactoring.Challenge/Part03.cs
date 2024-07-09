@@ -1,42 +1,26 @@
-﻿using Refactoring.Challenge.Interfaces;
-
-namespace Refactoring.Challenge;
+﻿namespace Refactoring.Challenge;
 
 /// <summary>
-/// This part involves refactoring a recursive method that attempts to make a worker work.
+/// This part involves refactoring a method that calculates the sum of numbers.
 /// The Run method should:
 ///     * Be refactored to use a simpler solution.
 ///     * Not break the existing test.
 /// </summary>
 public class Part03
 {
-    private readonly IWorker _worker;
-
-    public Part03(IWorker worker)
+    public double Run(IReadOnlyCollection<int> numbers)
     {
-        _worker = worker;
-    }
-    
-    public async Task<bool> Run(int maxAttempts)
-    {
-        if (maxAttempts > 0)
-        {
-            var worked = await _worker.TryWorkAsync();
+        var total = 0;
+        var count = 0;
 
-            if (!worked)
-            {
-                worked = await Run(--maxAttempts);
-            }
-            else
-            {
-                return worked;
-            }
-
-            return worked;
-        }
-        else
+        foreach (var number in numbers)
         {
-            return false;
+            total += number;
+            count++;
         }
+
+        var average = total / count;
+
+        return average;
     }
 }

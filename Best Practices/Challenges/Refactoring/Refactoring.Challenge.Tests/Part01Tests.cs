@@ -1,4 +1,4 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 
 namespace Refactoring.Challenge.Tests;
 
@@ -6,20 +6,41 @@ namespace Refactoring.Challenge.Tests;
 public class Part01Tests
 {
     [Test]
-    public void CanCalculateAverage()
+    public void CheckIfPrime_WithPrimeNumber_ReturnsTrue()
     {
         // Arrange
-
-        var numbers = new [] { 1, 5, 10, 11, 3, 6 };
-
-        var exercise = new Part01();
+        var part = new Part01();
 
         // Act
-
-        var average = exercise.Run(numbers);
+        bool result = part.Run(7);
 
         // Assert
+        result.Should().BeTrue();
+    }
 
-        average.Should().Be(6);
+    [Test]
+    public void CheckIfPrime_WithNonPrimeNumber_ReturnsFalse()
+    {
+        // Arrange
+        var part = new Part01();
+
+        // Act
+        bool result = part.Run(4);
+
+        // Assert
+        result.Should().BeFalse();
+    }
+
+    [Test]
+    public void CheckIfPrime_WithNumberLessThanTwo_ReturnsFalse()
+    {
+        // Arrange
+        var part = new Part01();
+
+        // Act
+        bool result = part.Run(1);
+
+        // Assert
+        result.Should().BeFalse();
     }
 }
