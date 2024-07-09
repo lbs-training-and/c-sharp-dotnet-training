@@ -1,46 +1,16 @@
-﻿using DI.Challenge.Services.Interfaces;
+namespace DI.Challenge;
 
-namespace DI.Challenge
+/// <summary>
+/// This part involves registering multiple implementations for a type.
+/// The registration should:
+///     * Register the FaxNotificationService, SmsNotificationService and EmailNotificationService services.
+///     * Use the INotificationService as the abstraction.
+///     * Use singleton as the lifetime.
+/// </summary>
+public static partial class ServiceCollectionExtensions
 {
-    /// <summary>
-    /// This part involves registering SingletonA and SingletonB as implementations of ISingletonService.
-    /// The class should:
-    ///     * Configure dependency injection to register SingletonA and SingletonB.
-    ///     * Ensure both SingletonA and SingletonB are registered as singletons.
-    /// </summary>
-    public class Part04
+    public static void AddPart04(this IServiceCollection serviceCollection)
     {
-        public static void NotMain(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
-
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureServices((context, services) =>
-                {
-                    // Register Services Here
-                });
-
-    }
-
-    /// <summary>
-    /// classes required specifically for this part.
-    /// Modification of these components is not necessary.
-    /// </summary>
-    public class SingletonA : ISingletonService
-    {
-        public string DoSingletonStuff()
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class SingletonB : ISingletonService
-    {
-        public string DoSingletonStuff()
-        {
-            throw new NotImplementedException();
-        }
+        // Add services here.
     }
 }

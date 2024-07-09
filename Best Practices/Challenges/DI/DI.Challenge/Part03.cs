@@ -1,25 +1,16 @@
-﻿namespace DI.Challenge
-{
-    /// <summary>
-    /// This part involves registering ISingletonService, IScopedService and ITransientService 
-    /// with their respective lifetime.
-    /// The class should:
-    ///     * Register ISingletonService
-    ///     * Register IScopedService
-    ///     * Register ITransientService
-    /// </summary>
-    public class Part03
-    {
-        public static void NotMain(string[] args)
-        {
-            CreateHostBuilder(args).Build().Run();
-        }
+namespace DI.Challenge;
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureServices((context, services) =>
-                {
-                    // Register Services Here
-                });
+/// <summary>
+/// This part involves registering the other lifetimes with an abstraction.
+/// The registration should:
+///     * Register the TransientService and ScopedService classes.
+///     * Use their respective abstractions as the type.
+///     * Be registered under the correct lifetime.
+/// </summary>
+public static partial class ServiceCollectionExtensions
+{
+    public static void AddPart03(this IServiceCollection serviceCollection)
+    {
+        // Add services here.
     }
 }
