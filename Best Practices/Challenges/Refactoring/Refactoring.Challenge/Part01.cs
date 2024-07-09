@@ -1,26 +1,16 @@
 ﻿namespace Refactoring.Challenge;
 
 /// <summary>
-/// This part involves refactoring a method that calculates the sum of numbers.
+/// This part involves refactoring a method that checks if a number is prime.
 /// The Run method should:
 ///     * Be refactored to use a simpler solution.
 ///     * Not break the existing test.
 /// </summary>
 public class Part01
 {
-    public double Run(IReadOnlyCollection<int> numbers)
+    public bool Run(int n)
     {
-        var total = 0;
-        var count = 0;
-
-        foreach (var number in numbers)
-        {
-            total += number;
-            count++;
-        }
-
-        var average = total / count;
-
-        return average;
+        if (n <= 1) return false; for (int i = 2; i < n; i++) { if (n % i == 0) return false; }
+        return true;
     }
 }

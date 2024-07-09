@@ -1,28 +1,42 @@
 ﻿using Refactoring.Challenge.Interfaces;
-using Refactoring.Challenge.Models;
 
 namespace Refactoring.Challenge;
 
 /// <summary>
-/// This part involves refactoring a slow method.
+/// This part involves refactoring a recursive method that attempts to make a worker work.
 /// The Run method should:
 ///     * Be refactored to use a simpler solution.
 ///     * Not break the existing test.
 /// </summary>
 public class Part05
 {
-    private readonly IEnumerable<IWorker> _workers;
+    private readonly IWorker _worker;
 
-    public Part05(IEnumerable<IWorker> workers)
+    public Part05(IWorker worker)
     {
-        _workers = workers;
+        _worker = worker;
     }
-
-    public async Task Run()
+    
+    public async Task<bool> Run(int maxAttempts)
     {
-        foreach (var worker in _workers)
+        if (maxAttempts > 0)
         {
-            await worker.Sleep();
+            var worked = await _worker.TryWorkAsync();
+
+            if (!worked)
+            {
+                worked = await Run(--maxAttempts);
+            }
+            else
+            {
+                return worked;
+            }
+
+            return worked;
+        }
+        else
+        {
+            return false;
         }
     }
 }
