@@ -1,6 +1,4 @@
 using FluentAssertions;
-using Moq;
-using Refactoring.Challenge.Interfaces;
 
 namespace Refactoring.Challenge.Tests;
 
@@ -8,39 +6,22 @@ namespace Refactoring.Challenge.Tests;
 public class Part05Tests
 {
     [Test]
-    [TestCase(5, 1)]
-    [TestCase(5, 3)]
-    [TestCase(5, 5)]
-    [TestCase(5, -1)]
-    [TestCase(1, 1)]
-    public async Task CanAttemptToWork(int maxAttempts, int workedOnAttempt)
+    [TestCase("toast", false)]
+    [TestCase("programming", false)]
+    [TestCase("radar", true)]
+    [TestCase("hannah", true)]
+    public void CanCheckIfPalindrome(string text, bool expected)
     {
         // Arrange
 
-        var workerMock = new Mock<IWorker>();
-
-        var expectedHasWorked = workedOnAttempt != -1;
-        var workAttemptsUsed = expectedHasWorked ? workedOnAttempt : maxAttempts;
-        
-        var exercise = new Part05(workerMock.Object);
-
-        var attempt = 0;
-        
-        workerMock.Setup(w => w.TryWorkAsync()).Returns(() =>
-        {
-            attempt++;
-            var worked = attempt == workedOnAttempt;
-            return Task.FromResult(worked);
-        });
+        var exercise = new Part05();
 
         // Act
 
-        var hasWorked = await exercise.Run(maxAttempts);
+        var isPalinedrome = exercise.Run(text);
 
         // Assert
 
-        hasWorked.Should().Be(expectedHasWorked);
-        
-        workerMock.Verify(w => w.TryWorkAsync(), Times.Exactly(workAttemptsUsed));
+        isPalinedrome.Should().Be(expected);
     }
 }

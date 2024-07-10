@@ -1,8 +1,6 @@
-using System.Linq.Expressions;
 using FluentAssertions;
 using Moq;
 using Refactoring.Challenge.Interfaces;
-using Refactoring.Challenge.Models;
 
 namespace Refactoring.Challenge.Tests;
 
@@ -10,76 +8,39 @@ namespace Refactoring.Challenge.Tests;
 public class Part06Tests
 {
     [Test]
-    [TestCase(OrderStatus.Pending)]
-    [TestCase(OrderStatus.Confirmed)]
-    [TestCase(OrderStatus.Dispatched)]
-    [TestCase(OrderStatus.Delayed)]
-    [TestCase(OrderStatus.Delivered)]
-    [TestCase(OrderStatus.Cancelled)]
-    public async Task CanSendNotification(OrderStatus orderStatus)
+    [TestCase(5, 1)]
+    [TestCase(5, 3)]
+    [TestCase(5, 5)]
+    [TestCase(5, -1)]
+    [TestCase(1, 1)]
+    public async Task CanAttemptToWork(int maxAttempts, int workedOnAttempt)
     {
         // Arrange
 
-        var notificationServiceMock = new Mock<INotificationService>();
+        var workerMock = new Mock<IWorker>();
+
+        var expectedHasWorked = workedOnAttempt != -1;
+        var workAttemptsUsed = expectedHasWorked ? workedOnAttempt : maxAttempts;
         
-        var exercise = new Part06(notificationServiceMock.Object);
+        var exercise = new Part06(workerMock.Object);
 
-        var order = new Order
-        {
-            Id = 1,
-            Status = orderStatus
-        };
-
-        var methodFuncByOrderStatus = new Dictionary<OrderStatus, Expression<Func<INotificationService, Task>>>
-        {
-            { OrderStatus.Pending, s => s.SendPending() },
-            { OrderStatus.Confirmed, s => s.SendConfirmed() },
-            { OrderStatus.Dispatched, s => s.SendDispatched() },
-            { OrderStatus.Delayed, s => s.SendDelayed() },
-            { OrderStatus.Delivered, s => s.SendDelivered() },
-            { OrderStatus.Cancelled, s => s.SendCancelled() },
-        };
-
-        notificationServiceMock
-            .Setup(methodFuncByOrderStatus[orderStatus])
-            .Returns(Task.CompletedTask);
+        var attempt = 0;
         
+        workerMock.Setup(w => w.TryWorkAsync()).Returns(() =>
+        {
+            attempt++;
+            var worked = attempt == workedOnAttempt;
+            return Task.FromResult(worked);
+        });
+
         // Act
 
-        await exercise.Run(order);
+        var hasWorked = await exercise.Run(maxAttempts);
 
         // Assert
 
-        notificationServiceMock.VerifyAll();
-        notificationServiceMock.VerifyNoOtherCalls();
-    }
-    
-    [Test]
-    [TestCase(OrderStatus.Unknown)]
-    [TestCase((OrderStatus)999)]
-    public async Task ThrowsNotImplementedException(OrderStatus orderStatus)
-    {
-        // Arrange
-
-        var notificationServiceMock = new Mock<INotificationService>();
+        hasWorked.Should().Be(expectedHasWorked);
         
-        var exercise = new Part06(notificationServiceMock.Object);
-
-        var order = new Order
-        {
-            Id = 1,
-            Status = orderStatus
-        };
-        
-        // Act
-
-        var action = () => exercise.Run(order);
-
-        // Assert
-
-        await action.Should().ThrowAsync<InvalidOperationException>();
-
-        notificationServiceMock.VerifyAll();
-        notificationServiceMock.VerifyNoOtherCalls();
+        workerMock.Verify(w => w.TryWorkAsync(), Times.Exactly(workAttemptsUsed));
     }
 }

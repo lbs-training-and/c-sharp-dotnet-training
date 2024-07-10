@@ -10,32 +10,76 @@ namespace Refactoring.Challenge.Tests;
 public class Part07Tests
 {
     [Test]
-    public async Task CanSleep()
+    [TestCase(OrderStatus.Pending)]
+    [TestCase(OrderStatus.Confirmed)]
+    [TestCase(OrderStatus.Dispatched)]
+    [TestCase(OrderStatus.Delayed)]
+    [TestCase(OrderStatus.Delivered)]
+    [TestCase(OrderStatus.Cancelled)]
+    public async Task CanSendNotification(OrderStatus orderStatus)
     {
         // Arrange
 
-        var mockRepository = new MockRepository(MockBehavior.Loose);
-
-        var workerMocks = Enumerable.Range(0, 5)
-            .Select(_ => mockRepository.Create<IWorker>())
-            .ToArray();
-
-        foreach (var workerMock in workerMocks)
-        {
-            workerMock.Setup(w => w.Sleep()).Returns(() => Task.Delay(200));
-        }
-
-        var workers = workerMocks.Select(m => m.Object).ToArray();
+        var notificationServiceMock = new Mock<INotificationService>();
         
-        var exercise = new Part07(workers);
+        var exercise = new Part07(notificationServiceMock.Object);
+
+        var order = new Order
+        {
+            Id = 1,
+            Status = orderStatus
+        };
+
+        var methodFuncByOrderStatus = new Dictionary<OrderStatus, Expression<Func<INotificationService, Task>>>
+        {
+            { OrderStatus.Pending, s => s.SendPending() },
+            { OrderStatus.Confirmed, s => s.SendConfirmed() },
+            { OrderStatus.Dispatched, s => s.SendDispatched() },
+            { OrderStatus.Delayed, s => s.SendDelayed() },
+            { OrderStatus.Delivered, s => s.SendDelivered() },
+            { OrderStatus.Cancelled, s => s.SendCancelled() },
+        };
+
+        notificationServiceMock
+            .Setup(methodFuncByOrderStatus[orderStatus])
+            .Returns(Task.CompletedTask);
         
         // Act
 
-        await exercise.Run();
+        await exercise.Run(order);
 
         // Assert
 
-        mockRepository.VerifyAll();
-        mockRepository.VerifyNoOtherCalls();
+        notificationServiceMock.VerifyAll();
+        notificationServiceMock.VerifyNoOtherCalls();
+    }
+    
+    [Test]
+    [TestCase(OrderStatus.Unknown)]
+    [TestCase((OrderStatus)999)]
+    public async Task ThrowsNotImplementedException(OrderStatus orderStatus)
+    {
+        // Arrange
+
+        var notificationServiceMock = new Mock<INotificationService>();
+        
+        var exercise = new Part07(notificationServiceMock.Object);
+
+        var order = new Order
+        {
+            Id = 1,
+            Status = orderStatus
+        };
+        
+        // Act
+
+        var action = () => exercise.Run(order);
+
+        // Assert
+
+        await action.Should().ThrowAsync<InvalidOperationException>();
+
+        notificationServiceMock.VerifyAll();
+        notificationServiceMock.VerifyNoOtherCalls();
     }
 }

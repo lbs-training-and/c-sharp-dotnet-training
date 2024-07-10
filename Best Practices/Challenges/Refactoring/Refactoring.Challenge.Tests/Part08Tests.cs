@@ -1,68 +1,41 @@
-﻿using FluentAssertions;
+using System.Linq.Expressions;
+using FluentAssertions;
+using Moq;
+using Refactoring.Challenge.Interfaces;
+using Refactoring.Challenge.Models;
 
-namespace Refactoring.Challenge.Tests
+namespace Refactoring.Challenge.Tests;
+
+[TestFixture]
+public class Part08Tests
 {
-    [TestFixture]
-    public class Part08Tests
+    [Test]
+    public async Task CanSleep()
     {
-        [Test]
-        public void CalculateStats_WithValidNumbers_ReturnsCorrectStats()
+        // Arrange
+
+        var mockRepository = new MockRepository(MockBehavior.Loose);
+
+        var workerMocks = Enumerable.Range(0, 5)
+            .Select(_ => mockRepository.Create<IWorker>())
+            .ToArray();
+
+        foreach (var workerMock in workerMocks)
         {
-            var part = new Part08();
-            var numbers = new List<int> { 1, 2, 2, 3, 4 };
-
-            var result = part.CalculateStats(numbers);
-
-            result.Item1.Should().BeApproximately(2.4, 0.001);
-            result.Item2.Should().Be(2);
-            result.Item3.Should().Be(2);
+            workerMock.Setup(w => w.Sleep()).Returns(() => Task.Delay(200));
         }
 
-        [Test]
-        public void CalculateStats_WithEvenNumberOfElements_ReturnsCorrectMedian()
-        {
-            var part = new Part08();
-            var numbers = new List<int> { 1, 2, 3, 4 };
+        var workers = workerMocks.Select(m => m.Object).ToArray();
+        
+        var exercise = new Part08(workers);
+        
+        // Act
 
-            var result = part.CalculateStats(numbers);
+        await exercise.Run();
 
-            result.Item1.Should().BeApproximately(2.5, 0.001);
-            result.Item2.Should().Be(2.5);
-            result.Item3.Should().BeOneOf(1, 2, 3, 4);
-        }
+        // Assert
 
-        [Test]
-        public void CalculateStats_WithSingleElement_ReturnsElementAsMeanMedianMode()
-        {
-            var part = new Part08();
-            var numbers = new List<int> { 5 };
-
-            var result = part.CalculateStats(numbers);
-
-            result.Item1.Should().Be(5);
-            result.Item2.Should().Be(5);
-            result.Item3.Should().Be(5);
-        }
-
-        [Test]
-        public void CalculateStats_WithNullList_ThrowsArgumentException()
-        {
-            var part = new Part08();
-
-            Action action = () => part.CalculateStats(null);
-
-            action.Should().Throw<ArgumentException>().WithMessage("List is null or empty");
-        }
-
-        [Test]
-        public void CalculateStats_WithEmptyList_ThrowsArgumentException()
-        {
-            var part = new Part08();
-            var numbers = new List<int>();
-
-            Action action = () => part.CalculateStats(numbers);
-
-            action.Should().Throw<ArgumentException>().WithMessage("List is null or empty");
-        }
+        mockRepository.VerifyAll();
+        mockRepository.VerifyNoOtherCalls();
     }
 }

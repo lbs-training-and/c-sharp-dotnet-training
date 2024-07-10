@@ -1,43 +1,67 @@
-using Refactoring.Challenge.Models;
-
-namespace Refactoring.Challenge;
-
-/// <summary>
-/// This part involves refactoring a method that returns paged orders.
-/// The Run method should:
-///     * Be refactored to use a simpler solution.
-///     * Not break the existing test.
-/// </summary>
-public class Part09
+﻿namespace Refactoring.Challenge
 {
-    public IReadOnlyCollection<Order> Run(IReadOnlyCollection<Order> orders, OrderStatus orderStatus, int page, int pageSize)
+    /// <summary>
+    /// This part involves refactoring a method that calculates statistics on a list of numbers.
+    /// The Run method should:
+    ///     * Be refactored to use a simpler solution.
+    ///     * Not break the existing test.
+    ///     * HINT - break down into smaller relevant methods
+    /// </summary>
+    /// </summary>
+    public class Part09
     {
-        var filteredOrders = new List<Order>();
-
-        foreach (var order in orders)
+        public (double, double, double) CalculateStats(List<int> nums)
         {
-            if (order.Status == orderStatus)
+            if (nums == null || nums.Count == 0)
             {
-                filteredOrders.Add(order);
+                throw new ArgumentException("List is null or empty");
             }
+
+            double mean = 0;
+            double median = 0;
+            double mode = 0;
+
+            int sum = 0;
+            foreach (var num in nums)
+            {
+                sum += num;
+            }
+            mean = (double)sum / nums.Count;
+
+            nums.Sort();
+            if (nums.Count % 2 == 0)
+            {
+                median = (nums[nums.Count / 2 - 1] + nums[nums.Count / 2]) / 2.0;
+            }
+            else
+            {
+                median = nums[nums.Count / 2];
+            }
+
+            Dictionary<int, int> counts = new Dictionary<int, int>();
+            foreach (var num in nums)
+            {
+                if (counts.ContainsKey(num))
+                {
+                    counts[num]++;
+                }
+                else
+                {
+                    counts[num] = 1;
+                }
+            }
+
+            int maxCount = 0;
+            foreach (var kvp in counts)
+            {
+                if (kvp.Value > maxCount)
+                {
+                    maxCount = kvp.Value;
+                    mode = kvp.Key;
+                }
+            }
+
+            return (mean, median, mode);
         }
-        
-        filteredOrders.Sort((l, r) => DateTime.Compare(l.Created, r.Created));
-
-        var pageStart = page * pageSize - pageSize;
-
-        if (pageStart > filteredOrders.Count)
-        {
-            return new List<Order>();
-        }
-
-        if (pageStart + pageSize > filteredOrders.Count)
-        {
-            pageSize = filteredOrders.Count - pageStart;
-        }
-        
-        filteredOrders = filteredOrders.Slice(pageStart, pageSize);
-
-        return filteredOrders;
     }
 }

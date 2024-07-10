@@ -1,27 +1,26 @@
 ﻿namespace Refactoring.Challenge;
 
 /// <summary>
-/// This part involves refactoring a palindrome check.
+/// This part involves refactoring a method that calculates the sum of numbers.
 /// The Run method should:
 ///     * Be refactored to use a simpler solution.
 ///     * Not break the existing test.
-///     * NOTE - The reverse of this is sometimes asked in interviews, what is the fastest way to check if a string is a palindrome.
 /// </summary>
 public class Part04
 {
-    public bool Run(string text)
+    public double Run(IReadOnlyCollection<int> numbers)
     {
-        var length = text.Length;
-        var charactersToCheck = length / 2;
-        
-        for (var i = 0; i < charactersToCheck; i++)
+        var total = 0;
+        var count = 0;
+
+        foreach (var number in numbers)
         {
-            if (text[i] != text[length - i - 1])
-            {
-                return false;
-            }
+            total += number;
+            count++;
         }
-        
-        return true;
+
+        var average = total / count;
+
+        return average;
     }
 }

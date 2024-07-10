@@ -1,95 +1,68 @@
-using FluentAssertions;
-using Refactoring.Challenge.Models;
+﻿using FluentAssertions;
 
-namespace Refactoring.Challenge.Tests;
-
-[TestFixture]
-public class Part09Tests
+namespace Refactoring.Challenge.Tests
 {
-    [Test]
-    public void CanFilter()
+    [TestFixture]
+    public class Part09Tests
     {
-        // Arrange
-
-        var allOrders = new Order[]
+        [Test]
+        public void CalculateStats_WithValidNumbers_ReturnsCorrectStats()
         {
-            new() { Status = OrderStatus.Dispatched },
-            new() { Status = OrderStatus.Dispatched },
-            new() { Status = OrderStatus.Cancelled },
-            new() { Status = OrderStatus.Dispatched },
-            new() { Status = OrderStatus.Dispatched },
-        };
+            var part = new Part09();
+            var numbers = new List<int> { 1, 2, 2, 3, 4 };
 
-        var expectedOrders = allOrders[..2].Concat(allOrders[3..5]);
+            var result = part.CalculateStats(numbers);
 
-        var exercise = new Part09();
+            result.Item1.Should().BeApproximately(2.4, 0.001);
+            result.Item2.Should().Be(2);
+            result.Item3.Should().Be(2);
+        }
 
-        // Act
+        [Test]
+        public void CalculateStats_WithEvenNumberOfElements_ReturnsCorrectMedian()
+        {
+            var part = new Part09();
+            var numbers = new List<int> { 1, 2, 3, 4 };
 
-        var orders = exercise.Run(allOrders, OrderStatus.Dispatched, 1, 5);
+            var result = part.CalculateStats(numbers);
 
-        // Assert
+            result.Item1.Should().BeApproximately(2.5, 0.001);
+            result.Item2.Should().Be(2.5);
+            result.Item3.Should().BeOneOf(1, 2, 3, 4);
+        }
 
-        orders.Should().BeEquivalentTo(expectedOrders);
-    }
+        [Test]
+        public void CalculateStats_WithSingleElement_ReturnsElementAsMeanMedianMode()
+        {
+            var part = new Part09();
+            var numbers = new List<int> { 5 };
 
-    [Test]
-    [TestCase(2, 10, 10, 20)]
-    [TestCase(1, 5, 0, 5)]
-    [TestCase(10, 10, 0, 0)]
-    [TestCase(8, 7, 49, 50)]
-    public void CanPage(int page, int pageSize, int startIndex, int endIndex)
-    {
-        // Arrange
+            var result = part.CalculateStats(numbers);
 
-        var allOrders = Enumerable.Range(0, 50)
-            .Select(i => new Order
-            {
-                Id = i,
-                Created = DateTime.UtcNow.AddSeconds(i),
-                Status = OrderStatus.Cancelled
-            })
-            .ToArray();
+            result.Item1.Should().Be(5);
+            result.Item2.Should().Be(5);
+            result.Item3.Should().Be(5);
+        }
 
-        var expectedOrders = allOrders[startIndex..endIndex];
+        [Test]
+        public void CalculateStats_WithNullList_ThrowsArgumentException()
+        {
+            var part = new Part09();
 
-        var exercise = new Part09();
+            Action action = () => part.CalculateStats(null);
 
-        // Act
+            action.Should().Throw<ArgumentException>().WithMessage("List is null or empty");
+        }
 
-        var orders = exercise.Run(allOrders, OrderStatus.Cancelled, page, pageSize);
+        [Test]
+        public void CalculateStats_WithEmptyList_ThrowsArgumentException()
+        {
+            var part = new Part09();
+            var numbers = new List<int>();
 
-        // Assert
+            Action action = () => part.CalculateStats(numbers);
 
-        orders.Should().BeEquivalentTo(expectedOrders);
-    }
-
-    [Test]
-    [TestCase(2, 10, 30, 40)]
-    [TestCase(1, 5, 45, 50)]
-    [TestCase(10, 10, 0, 0)]
-    public void CanOrderAscending(int page, int pageSize, int startIndex, int endIndex)
-    {
-        var allOrders = Enumerable.Range(0, 50)
-            .Select(i => new Order
-            {
-                Id = i,
-                Created = DateTime.UtcNow.AddSeconds(i),
-                Status = OrderStatus.Cancelled
-            })
-            .Reverse()
-            .ToArray();
-
-        var expectedOrders = allOrders[startIndex..endIndex];
-
-        var exercise = new Part09();
-
-        // Act
-
-        var orders = exercise.Run(allOrders, OrderStatus.Cancelled, page, pageSize);
-        
-        // Assert
-
-        orders.Should().BeEquivalentTo(expectedOrders);
+            action.Should().Throw<ArgumentException>().WithMessage("List is null or empty");
+        }
     }
 }

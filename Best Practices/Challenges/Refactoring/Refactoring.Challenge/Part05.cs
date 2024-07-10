@@ -1,42 +1,27 @@
-﻿using Refactoring.Challenge.Interfaces;
-
-namespace Refactoring.Challenge;
+﻿namespace Refactoring.Challenge;
 
 /// <summary>
-/// This part involves refactoring a recursive method that attempts to make a worker work.
+/// This part involves refactoring a palindrome check.
 /// The Run method should:
 ///     * Be refactored to use a simpler solution.
 ///     * Not break the existing test.
+///     * NOTE - The reverse of this is sometimes asked in interviews, what is the fastest way to check if a string is a palindrome.
 /// </summary>
 public class Part05
 {
-    private readonly IWorker _worker;
-
-    public Part05(IWorker worker)
+    public bool Run(string text)
     {
-        _worker = worker;
-    }
-    
-    public async Task<bool> Run(int maxAttempts)
-    {
-        if (maxAttempts > 0)
+        var length = text.Length;
+        var charactersToCheck = length / 2;
+        
+        for (var i = 0; i < charactersToCheck; i++)
         {
-            var worked = await _worker.TryWorkAsync();
-
-            if (!worked)
+            if (text[i] != text[length - i - 1])
             {
-                worked = await Run(--maxAttempts);
+                return false;
             }
-            else
-            {
-                return worked;
-            }
-
-            return worked;
         }
-        else
-        {
-            return false;
-        }
+        
+        return true;
     }
 }

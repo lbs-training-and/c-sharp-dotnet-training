@@ -1,25 +1,26 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 
-namespace Refactoring.Challenge.Tests;
-
-[TestFixture]
-public class Part03Tests
+namespace Refactoring.Challenge.Tests
 {
-    [Test]
-    public void CanCalculateAverage()
+    [TestFixture]
+    public class Part03Tests
     {
-        // Arrange
+        [Test]
+        public void Run_WithValidDates_ReturnsFormattedString()
+        {
+            // Arrange
+            var part = new Part03();
+            var startDate = new DateTime(2024, 1, 1);
+            var endDate = new DateTime(2024, 12, 31);
+            var renewalDate = new DateTime(2025, 1, 1);
 
-        var numbers = new [] { 1, 5, 10, 11, 3, 6 };
+            // Act
+            var result = part.Run(startDate, endDate, renewalDate);
 
-        var exercise = new Part03();
+            //Assert
+            var expectedFormat = $"Start Date: {startDate:dd-MM-yyyy}, End Date: {endDate:dd-MM-yyyy}, Renewal Date: {renewalDate:dd-MM-yyyy}";
 
-        // Act
-
-        var average = exercise.Run(numbers);
-
-        // Assert
-
-        average.Should().Be(6);
+            result.Should().Match(expectedFormat);
+        }
     }
 }

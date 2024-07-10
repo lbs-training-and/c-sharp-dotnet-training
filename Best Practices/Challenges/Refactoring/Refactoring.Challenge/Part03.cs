@@ -1,26 +1,19 @@
 ﻿namespace Refactoring.Challenge;
 
 /// <summary>
-/// This part involves refactoring a method that calculates the sum of numbers.
+/// This part involves refactoring a method that concatinates different datetimes
 /// The Run method should:
 ///     * Be refactored to use a simpler solution.
 ///     * Not break the existing test.
 /// </summary>
 public class Part03
 {
-    public double Run(IReadOnlyCollection<int> numbers)
+    public string Run(DateTime startDate, DateTime endDate, DateTime renewalDate)
     {
-        var total = 0;
-        var count = 0;
+        string formattedStartDate = startDate.Day.ToString("00") + "-" + startDate.Month.ToString("00") + "-" + startDate.Year.ToString("0000");
+        var formattedEndDate = endDate.Day.ToString("00") + "-" + endDate.Month.ToString("00") + "-" + endDate.Year.ToString("0000");
+        string formattedRenewalDate = renewalDate.Day.ToString("00") + "-" + renewalDate.Month.ToString("00") + "-" + renewalDate.Year.ToString("0000");
 
-        foreach (var number in numbers)
-        {
-            total += number;
-            count++;
-        }
-
-        var average = total / count;
-
-        return average;
+        return "Start Date: " + formattedStartDate + ", End Date: " + formattedEndDate + ", Renewal Date: " + formattedRenewalDate;
     }
 }

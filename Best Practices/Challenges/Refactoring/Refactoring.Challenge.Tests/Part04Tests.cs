@@ -6,22 +6,20 @@ namespace Refactoring.Challenge.Tests;
 public class Part04Tests
 {
     [Test]
-    [TestCase("toast", false)]
-    [TestCase("programming", false)]
-    [TestCase("radar", true)]
-    [TestCase("hannah", true)]
-    public void CanCheckIfPalindrome(string text, bool expected)
+    public void CanCalculateAverage()
     {
         // Arrange
+
+        var numbers = new [] { 1, 5, 10, 11, 3, 6 };
 
         var exercise = new Part04();
 
         // Act
 
-        var isPalinedrome = exercise.Run(text);
+        var average = exercise.Run(numbers);
 
         // Assert
 
-        isPalinedrome.Should().Be(expected);
+        average.Should().Be(6);
     }
 }
