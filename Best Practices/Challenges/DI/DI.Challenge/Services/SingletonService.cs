@@ -1,13 +1,12 @@
-﻿using DI.Challenge.Services.Interfaces;
+﻿using DI.Challenge.Interfaces;
 
 namespace DI.Challenge.Services
 {
     public class SingletonService : ISingletonService
     {
-        public const string SingletonCalled = "SingletonCalled";
-        public string DoSingletonStuff()
+        public void DoSingletonStuff(object work)
         {
-            return SingletonCalled;
+            // Do Stuff.
         }
     }
 }

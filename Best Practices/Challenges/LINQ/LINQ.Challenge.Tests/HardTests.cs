@@ -56,18 +56,18 @@ public class HardTests
         groupedPeople.Should().NotBeNull();
         groupedPeople.Should().HaveCount(3);
 
-        var doeGroup = groupedPeople.SingleOrDefault(g => g.Any(p => p.LastName == "Doe"));
+        var doeGroup = groupedPeople.SingleOrDefault(g => g.Key == "Doe");
         doeGroup.Should().NotBeNull();
         doeGroup.Should().HaveCount(2);
         doeGroup.Should().Contain(p => p.FirstName == "John" && p.LastName == "Doe");
         doeGroup.Should().Contain(p => p.FirstName == "Jane" && p.LastName == "Doe");
 
-        var smithGroup = groupedPeople.SingleOrDefault(g => g.Any(p => p.LastName == "Smith"));
+        var smithGroup = groupedPeople.SingleOrDefault(g => g.Key == "Smith");
         smithGroup.Should().HaveCount(2);
         smithGroup.Should().Contain(p => p.FirstName == "Bob" && p.LastName == "Smith");
         smithGroup.Should().Contain(p => p.FirstName == "Charlie" && p.LastName == "Smith");
 
-        var brownGroup = groupedPeople.SingleOrDefault(g => g.Any(p => p.LastName == "Brown"));
+        var brownGroup = groupedPeople.SingleOrDefault(g => g.Key == "Brown");
         brownGroup.Should().NotBeNull();
         brownGroup.Should().HaveCount(1);
         brownGroup.Should().Contain(p => p.FirstName == "Alice" && p.LastName == "Brown");

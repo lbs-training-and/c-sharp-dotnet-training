@@ -1,12 +1,12 @@
-﻿using DI.Challenge.Services.Interfaces;
+﻿using DI.Challenge.Interfaces;
 
 namespace DI.Challenge.Services
 {
     public class TransientService : ITransientService
     {
-        public void DoTransientStuff()
+        public void DoTransientStuff(object work)
         {
-            // Do Stuff
+            // Do Stuff.
         }
     }
 }
