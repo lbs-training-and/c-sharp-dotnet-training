@@ -1,6 +1,9 @@
-# LINQ Challenge
+# Refactoring Challenge
 
-Welcome to the LINQ Challenge! This challenge is designed to test and enhance your knowledge of LINQ in C#. The tasks are divided into three difficulty levels: Easy, Intermediate, and Hard. Each level includes a set of methods to implement and corresponding unit tests to validate your solutions.
+Welcome to the Refactoring Challenge! This challenge is designed to put your knowledge of C# into practice.\
+Code can be written many ways, and it's up to you to determine what looks good whilst following best practices.\
+Take a look at the code, and refactor to something you think is better.
+
 
 ## Getting Started
 
