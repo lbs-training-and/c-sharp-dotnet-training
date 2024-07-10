@@ -48,7 +48,7 @@ public class Part10Tests
           
             Task<int> GetReturnTask() => concurrencyTask =
                 concurrencyTask is null or { Status: TaskStatus.WaitingForActivation }
-                    ? Task.Delay(1).ContinueWith(_ => racerId)
+                    ? Task.Delay(100).ContinueWith(_ => racerId)
                     : Task.FromException<int>(new Exception("The tasks are not running concurrently."));
 
             mock.Setup(s => s.Race()).Returns(GetReturnTask);
@@ -90,7 +90,7 @@ public class Part10Tests
             
             var racerId = i;
 
-            var returnTask = Task.Delay(racerId == winnerId ? 1 : 10000).ContinueWith(_ => racerId);
+            var returnTask = Task.Delay(racerId == winnerId ? 1 : 1000).ContinueWith(_ => racerId);
 
             mock.Setup(s => s.Race()).Returns(returnTask);
         }

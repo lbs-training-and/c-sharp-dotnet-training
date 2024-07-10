@@ -52,7 +52,7 @@ public class Part08Tests
             mock.Setup(s => s.SendAsync(order)).Returns(() =>
             {
                 previousTask = previousTask is null or { Status: TaskStatus.WaitingForActivation }
-                    ? Task.Delay(1)
+                    ? Task.Delay(100)
                     : Task.FromException(new Exception("The tasks are not running concurrently."));
 
                 return previousTask;
