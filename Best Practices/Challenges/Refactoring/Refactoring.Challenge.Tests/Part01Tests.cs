@@ -12,7 +12,7 @@ public class Part01Tests
         var part = new Part01();
 
         // Act
-        bool result = part.Run(7);
+        var result = part.Run(7);
 
         // Assert
         result.Should().BeTrue();
@@ -25,7 +25,7 @@ public class Part01Tests
         var part = new Part01();
 
         // Act
-        bool result = part.Run(4);
+        var result = part.Run(4);
 
         // Assert
         result.Should().BeFalse();
@@ -38,7 +38,7 @@ public class Part01Tests
         var part = new Part01();
 
         // Act
-        bool result = part.Run(1);
+        var result = part.Run(1);
 
         // Assert
         result.Should().BeFalse();

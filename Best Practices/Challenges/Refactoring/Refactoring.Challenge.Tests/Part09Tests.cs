@@ -49,7 +49,7 @@ namespace Refactoring.Challenge.Tests
         {
             var part = new Part09();
 
-            Action action = () => part.CalculateStats(null);
+            var action = () => part.CalculateStats(null);
 
             action.Should().Throw<ArgumentException>().WithMessage("List is null or empty");
         }
@@ -60,7 +60,7 @@ namespace Refactoring.Challenge.Tests
             var part = new Part09();
             var numbers = new List<int>();
 
-            Action action = () => part.CalculateStats(numbers);
+            var action = () => part.CalculateStats(numbers);
 
             action.Should().Throw<ArgumentException>().WithMessage("List is null or empty");
         }
