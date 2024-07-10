@@ -14,57 +14,81 @@ Welcome to the Dependency Injection Challenge! This challenge is designed to tes
 * Run All Tests: Run all the tests to ensure your implementations are correct.
 
 ## Challenges
-### Part01
+### Part 01
 
-Objective: Create a class that depends on SingletonService.
+Objective: Register a singleton class.
 
 Instructions:
- * Define a private readonly instance of SingletonService.
- * Accept the SingletonService instance through the constructor.
- * Implement the Execute method to call SingletonService's DoSingletonStuff method.
+* Register the SingletonService class.
+* Be registered as itself.
+* Not use abstraction as the type.
+* Be a singleton.
 
 ---
 
-### Part02
+### Part 02
 
-Objective: Create a class that depends on ISingletonService.
+Objective: Register a singleton class with an abstraction.
 
 Instructions:
-* Define a private readonly instance of ISingletonService.
-* Accept the ISingletonService instance through the constructor.
-* Implement the Execute method to call ISingletonService's DoSingletonStuff method.
+* Register the SingletonService class.
+* Use the ISingletonService abstraction as the type.
+* Be a singleton.
 
 ___ 
 
-### Part03
+### Part 03
 
-Objective: Register services with their respective lifetimes.
+Objective: Register classes for the Transient and Scoped lifetimes.
 
 Instructions:
-* Register ISingletonService with a singleton lifetime.
-* Register IScopedService with a scoped lifetime.
-* Register ITransientService with a transient lifetime.
+* Register the TransientService and ScopedService classes.
+* Use their respective abstractions as the type.
+* Be registered under the correct lifetime.
 
 ___
 
-### Part04
+### Part 04
 
-Objective: Register multiple implementations of ISingletonService.
+Objective: Register multiple implementations of a type.
 
 Instructions:
-* Register SingletonA and SingletonB as singletons.
-* Ensure both implementations are configured correctly in the dependency injection container.
+* Register the FaxNotificationService, SmsNotificationService and EmailNotificationService services.
+* Use the INotificationService as the abstraction.
+* Use singleton as the lifetime.
 
 ___
 
-### Part05
+### Part 05
 
-Objective: Work with multiple implementations of the ISingletonService interface.
+Objective: Take a dependency on a type.
 
 Instructions:
-* Accept an IEnumerable<ISingletonService> in the constructor.
-* Assign the injected IEnumerable<ISingletonService> to a private readonly field.
-* Implement the ExecuteAll method to call the DoSingletonStuff method on each ISingletonService implementation.
+* Register the SingletonConsumerService using the ISingletonConsumerService type as a singleton.
+* Take a dependency on the ISingletonService through the constructor.
+* Call the ISingletonService's DoSingletonStuff method in the DoWork method.
+
+---
+
+### Part 06
+
+Objective: Take a dependency on multiple types.
+
+Instructions:
+* Register the ConsumerService using the IConsumerService type as a transient.
+* Take a dependency on the ISingletonService, IScopedService and ITransientService through the constructor.
+* Call each of the service's methods in the DoWork method.
+
+---
+
+### Part 07
+
+Objective: Take a dependency on multiple implementations of a type.
+
+Instructions:
+* Register the OrderService using the IOrderService type as a scoped lifetime.
+* Take a dependency on all implementations of INotificationService.
+* Call INotificationService's SendDispatched method in the Dispatch method.
 
 ---
 

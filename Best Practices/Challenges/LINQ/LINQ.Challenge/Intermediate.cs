@@ -27,7 +27,7 @@ public class Intermediate
     /// </summary>
     /// <param name="numbers">An enumerable collection of integers.</param>
     /// <returns>A list of integers ordered in ascending order.</returns>
-    public List<int> GetListOfOrderedNumbersAscending(IEnumerable<int> numbers)
+    public IList<int> GetListOfOrderedNumbersAscending(IEnumerable<int> numbers)
     {
         throw new NotImplementedException();
     }
@@ -37,7 +37,7 @@ public class Intermediate
     /// </summary>
     /// <param name="numbers">An enumerable collection of integers.</param>
     /// <returns>A list of integers ordered in descending order.</returns>
-    public List<int> GetListOfOrderedNumbersDescending(IEnumerable<int> numbers)
+    public IList<int> GetListOfOrderedNumbersDescending(IEnumerable<int> numbers)
     {
         throw new NotImplementedException();
     }
@@ -47,7 +47,7 @@ public class Intermediate
     /// </summary>
     /// <param name="numbers">An enumerable collection of integers.</param>
     /// <returns>A list of unique integers from the collection.</returns>
-    public List<int> GetListOfUniqueNumbers(IEnumerable<int> numbers)
+    public IList<int> GetListOfUniqueNumbers(IEnumerable<int> numbers)
     {
         throw new NotImplementedException();
     }

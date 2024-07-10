@@ -20,7 +20,7 @@ public class Hard
     /// </summary>
     /// <param name="people">An enumerable collection of Person objects.</param>
     /// <returns>A list of lists, where each inner list contains Person objects that share the same last name.</returns>
-    public List<List<Person>> ListOfPeopleGroupedByLastName(IEnumerable<Person> people)
+    public IList<IGrouping<string, Person>> ListOfPeopleGroupedByLastName(IEnumerable<Person> people)
     {
         throw new NotImplementedException();
     }
@@ -32,7 +32,7 @@ public class Hard
     /// <param name="people">An enumerable collection of Person objects.</param>
     /// <param name="addresses">An enumerable collection of Address objects.</param>
     /// <returns>A list of PersonDto objects created by joining the Person and Address collections.</returns>
-    public List<PersonDto> JoinPeopleAndAddresses(IEnumerable<Person> people, IEnumerable<Address> addresses)
+    public IList<PersonDto> JoinPeopleAndAddresses(IEnumerable<Person> people, IEnumerable<Address> addresses)
     {
         throw new NotImplementedException();
     }
@@ -43,7 +43,7 @@ public class Hard
     /// </summary>
     /// <param name="people">An enumerable collection of Person objects.</param>
     /// <returns>A list of unique PersonDto objects converted from the provided Person collection.</returns>
-    public List<PersonDto> GetUniquePeopleAsDto(IEnumerable<Person> people)
+    public IList<PersonDto> GetUniquePeopleAsDto(IEnumerable<Person> people)
     {
         throw new NotImplementedException();
     }
@@ -54,7 +54,7 @@ public class Hard
     /// <param name="people">An enumerable collection of Person objects.</param>
     /// <param name="age">The age threshold for filtering people.</param>
     /// <returns>A list of unique first names of people older than the specified age, ordered alphabetically.</returns>
-    public List<string> GetUniqueOrderedFirstNamesOfPeopleOverAge(IEnumerable<Person> people, int age)
+    public IList<string> GetUniqueOrderedFirstNamesOfPeopleOverAge(IEnumerable<Person> people, int age)
     {
         throw new NotImplementedException();
     }

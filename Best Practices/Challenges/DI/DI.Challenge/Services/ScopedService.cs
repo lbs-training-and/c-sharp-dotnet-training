@@ -1,12 +1,12 @@
-﻿using DI.Challenge.Services.Interfaces;
+﻿using DI.Challenge.Interfaces;
 
 namespace DI.Challenge.Services
 {
     public class ScopedService : IScopedService
     {
-        public void DoScopedStuff()
+        public void DoScopedStuff(object work)
         {
-            // Do Stuff
+            // Do Stuff.
         }
     }
 }

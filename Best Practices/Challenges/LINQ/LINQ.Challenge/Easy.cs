@@ -21,7 +21,7 @@ public class Easy
     /// <param name="people">An enumerable collection of Person objects.</param>
     /// <param name="year">The year to filter the birth dates of the people.</param>
     /// <returns>A list of Person objects who were born in the specified year.</returns>
-    public List<Person> GetListOfPersonsBornInYear(IEnumerable<Person> people, int year)
+    public IList<Person> GetListOfPersonsBornInYear(IEnumerable<Person> people, int year)
     {
         throw new NotImplementedException();
     }
