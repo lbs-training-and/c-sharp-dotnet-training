@@ -1,6 +1,7 @@
-# Dependency Injection Challenge
+# Asynchronous Programming Challenge
 
-Welcome to the Dependency Injection Challenge! This challenge is designed to test and enhance your knowledge of Dependency Injection (DI) in C#
+Welcome to the Asynchronous Programming Challenge!\
+This challenge is designed to test and enhance your knowledge of asynchronous programming in C#.
 
 ## Getting Started
 
