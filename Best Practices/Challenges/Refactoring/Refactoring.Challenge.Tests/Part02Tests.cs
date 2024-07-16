@@ -11,7 +11,7 @@ namespace Refactoring.Challenge.Tests
             var part = new Part02();
             var numbers = new List<int> { 1, 2, 3, 4, 5 };
 
-            int result = part.Run(numbers);
+            var result = part.Run(numbers);
             result.Should().Be(5);
         }
     }
