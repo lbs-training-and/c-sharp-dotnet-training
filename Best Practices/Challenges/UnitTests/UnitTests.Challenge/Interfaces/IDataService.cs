@@ -2,6 +2,9 @@
 {
     public interface IDataService
     {
-        Task<string> GetDataAsync(string input);
+        Task SaveDataAsync(string input);
+        Task<string> GetDataAsync(int id);
+        Task<string> UpdateDataAsync(int id, string input);
+        Task DeleteDataAsync(int id);
     }
 }

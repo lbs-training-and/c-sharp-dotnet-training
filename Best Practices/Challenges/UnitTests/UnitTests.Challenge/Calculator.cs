@@ -3,11 +3,11 @@
     /// <summary>
     /// These parts involve writing tests for parts 1-4, follow the document for more information
     /// </summary>
-    public class Part01_04
+    public class Calculator
     {
         private int _total;
 
-        public Part01_04(int startValue)
+        public Calculator(int startValue)
         {
             _total = startValue;
         }
