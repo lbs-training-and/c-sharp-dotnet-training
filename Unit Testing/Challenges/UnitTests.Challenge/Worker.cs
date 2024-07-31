@@ -4,7 +4,7 @@ namespace UnitTests.Challenge;
 
 public class Worker
 {
-    public async Task DoWorkAsync(IJob job, int maxAttempts)
+    public async Task<bool> DoWorkAsync(IJob job, int maxAttempts)
     {
         var retryCount = 0;
 
@@ -14,8 +14,10 @@ public class Worker
 
             if (completed)
             {
-                break;
+                return true;
             }
         }
+
+        return false;
     }
 }
