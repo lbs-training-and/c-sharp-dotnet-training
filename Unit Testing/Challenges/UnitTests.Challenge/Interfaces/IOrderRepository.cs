@@ -1,6 +1,6 @@
 using UnitTests.Challenge.Models;
 
-namespace UnitTests.Challenge;
+namespace UnitTests.Challenge.Interfaces;
 
 public interface IOrderRepository
 {
