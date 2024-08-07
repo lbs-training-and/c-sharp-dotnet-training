@@ -47,7 +47,6 @@ namespace AzureFunction.Challenge.Function.Core.Services
                 OrderProducts = orderDto.OrderProducts.Select(op => new OrderProduct
                 {
                     Quantity = op.Quantity,
-                    ProductId = productDictionary[op.Product.Id].Id,
                     Price = productDictionary[op.Product.Id].Price,
                     Product = productDictionary[op.Product.Id],
                     Notes = op.Notes

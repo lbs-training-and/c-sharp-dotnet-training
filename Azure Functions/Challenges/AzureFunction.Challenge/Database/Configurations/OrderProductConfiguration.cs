@@ -14,8 +14,7 @@ namespace AzureFunction.Challenge.Function.Database.Configurations
             builder.Property(op => op.Price);
 
             builder.HasOne(op => op.Order)
-                   .WithMany(o => o.OrderProducts)
-                   .HasForeignKey(op => op.OrderId);
+                .WithMany(o => o.OrderProducts);
         }
     }
 
