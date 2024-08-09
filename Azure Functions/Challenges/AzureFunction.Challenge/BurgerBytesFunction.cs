@@ -13,15 +13,18 @@ namespace AzureFunction.Challenge.Function
         private readonly ILogger<BurgerBytesFunction> _logger;
         private readonly IProductService _productService;
         private readonly IOrderService _orderService;
+        private readonly JsonSerializerOptions _jsonOptions;
 
         public BurgerBytesFunction(
             ILogger<BurgerBytesFunction> logger,
             IProductService productService,
-            IOrderService orderService)
+            IOrderService orderService,
+            JsonSerializerOptions jsonOptions)
         {
             _logger = logger;
             _productService = productService;
             _orderService = orderService;
+            _jsonOptions = jsonOptions;
         }
 
         [Function("GetProducts")]
@@ -34,28 +37,20 @@ namespace AzureFunction.Challenge.Function
 
         [Function("CreateOrder")]
         public async Task<IActionResult> CreateOrder(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "orders")] HttpRequest req)
+            [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "orders")] HttpRequest req)
         {
-            try
-            {
-                string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
+            var orderDto = JsonSerializer.Deserialize<OrderDto>(requestBody, _jsonOptions);
 
-                var orderDto = JsonSerializer.Deserialize<OrderDto>(requestBody);
-
-                var orderId = await _orderService.CreateOrder(orderDto);
-
-                return new OkObjectResult(new { OrderId = orderId });
-            }
-            catch (JsonException ex)
+            if (orderDto is null)
             {
-                _logger.LogError($"Error deserializing order: {ex.Message}");
-                return new BadRequestObjectResult("Invalid JSON format.");
+                _logger.LogInformation("Unable to deserialise orderDto {orderDto}", requestBody);
+                return new BadRequestObjectResult("Invalid order data.");
             }
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error creating order: {ex.Message}");
-                return new StatusCodeResult(500);
-            }
+
+            var orderResponse = await _orderService.CreateOrder(orderDto);
+
+            return new OkObjectResult(orderResponse);
         }
 
         [Function("GetOrder")]

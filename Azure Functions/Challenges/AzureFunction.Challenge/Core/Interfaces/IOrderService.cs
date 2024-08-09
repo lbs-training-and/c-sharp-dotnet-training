@@ -6,6 +6,6 @@ namespace AzureFunction.Challenge.Function.Core.Interfaces
     {
         Task<OrderDto> GetOrderByIdAsync(int id);
 
-        Task<int> CreateOrder(OrderDto orderDto);
+        Task<OrderResponseDto> CreateOrder(OrderDto orderDto);
     }
 }

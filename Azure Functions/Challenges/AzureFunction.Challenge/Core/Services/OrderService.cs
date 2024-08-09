@@ -14,7 +14,7 @@ namespace AzureFunction.Challenge.Function.Core.Services
             _context = context;
         }
 
-        public async Task<int> CreateOrder(OrderDto orderDto)
+        public async Task<OrderResponseDto> CreateOrder(OrderDto orderDto)
         {
             var productIds = orderDto.OrderProducts.Select(op => op.Product.Id).ToList();
 
@@ -56,7 +56,12 @@ namespace AzureFunction.Challenge.Function.Core.Services
 
             var entityEntry = await _context.Orders.AddAsync(order);
             await _context.SaveChangesAsync();
-            return entityEntry.Entity.Id;
+
+            return new OrderResponseDto
+            {
+                Id = entityEntry.Entity.Id,
+                DeliveryTime = GetDeliveryTime()
+            };
         }
 
         public async Task<OrderDto> GetOrderByIdAsync(int id)
@@ -87,6 +92,16 @@ namespace AzureFunction.Challenge.Function.Core.Services
 
 
             return orderDto;
+        }
+
+        private DateTime GetDeliveryTime()
+        {
+            Random rnd = new Random();
+            int randomMinutes = rnd.Next(15, 31);
+
+            DateTime currentDateTime = DateTime.Now;
+
+            return currentDateTime.AddMinutes(randomMinutes);
         }
     }
 }

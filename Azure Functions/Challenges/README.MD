@@ -1,6 +1,7 @@
 # BurgetBytes Azure Function
 
 ## Contents
+- [Getting Started](#getting-started)
 - [Endpoints](#endpoints)
    * [List Products](#list-products)
       + [Response Format](#response-format)
@@ -13,6 +14,13 @@
       + [Request Example](#request-example)
       + [Response Format](#response-format-2)
       + [Response Example](#response-example-2)
+
+
+## Getting Started
+
+Simply run the project through your IDE
+   
+Or through your console using `func start`
 
 ## Endpoints
 
