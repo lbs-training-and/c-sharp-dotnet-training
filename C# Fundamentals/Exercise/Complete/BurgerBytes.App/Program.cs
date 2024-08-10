@@ -23,7 +23,7 @@ public class Program
         var intSelector = new IntSelector(inputHandler, outputHandler);
         var decimalSelector = new DecimalSelector(inputHandler, outputHandler);
         
-        var navigationOptionSelector = new NavigationOptionSelector(inputHandler, outputHandler, intSelector);
+        var navigationOptionSelector = new NavigationOptionSelector(outputHandler, intSelector);
         
         var itemSelector = new ItemSelector(outputHandler, intSelector);
 
@@ -31,13 +31,13 @@ public class Program
         
         var orderItemsProcess = new OrderItemsProcess(menu, itemSelector, inputHandler);
         var orderProcess = new OrderProcess(intSelector, decimalSelector, currencyProvider, orderItemsProcess);
-        var orderViewer = new OrderViewer(outputHandler, receiptPrinter, intSelector);
+        var orderSelector = new OrderSelector(outputHandler, intSelector);
             
         
         var navigationOptions = new INavigationOption[]
         {
             new CreateOrderNavigationOption(inputHandler, orderManager, orderProcess, receiptPrinter),
-            new ViewOrdersNavigationOptions(inputHandler, outputHandler, orderManager, orderViewer)
+            new ViewOrdersNavigationOptions(inputHandler, outputHandler, orderManager, orderSelector, receiptPrinter)
         };
         
         var navigator = new Navigator(navigationOptionSelector, navigationOptions);

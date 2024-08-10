@@ -1,3 +1,5 @@
+using BurgerBytes.App.Selectors;
+
 namespace BurgerBytes.App.Navigation;
 
 public class Navigator : INavigator

@@ -1,4 +1,6 @@
-namespace BurgerBytes.App.Navigation;
+using BurgerBytes.App.Navigation;
+
+namespace BurgerBytes.App.Selectors;
 
 public interface INavigationOptionSelector
 {

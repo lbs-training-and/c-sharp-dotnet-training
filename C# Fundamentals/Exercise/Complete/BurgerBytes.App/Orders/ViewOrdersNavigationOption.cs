@@ -1,6 +1,8 @@
 using BurgerBytes.App.Input;
 using BurgerBytes.App.Navigation;
 using BurgerBytes.App.Output;
+using BurgerBytes.App.Receipts;
+using BurgerBytes.App.Selectors;
 
 namespace BurgerBytes.App.Orders;
 
@@ -9,18 +11,21 @@ public class ViewOrdersNavigationOptions : INavigationOption
     private readonly IInputHandler _inputHandler;
     private readonly IOutputHandler _outputHandler;
     private readonly IOrderManager _orderManager;
-    private readonly IOrderViewer _orderViewer;
+    private readonly IOrderSelector _orderSelector;
+    private readonly IReceiptPrinter _receiptPrinter;
 
     public ViewOrdersNavigationOptions(
         IInputHandler inputHandler,
         IOutputHandler outputHandler,
         IOrderManager orderManager, 
-        IOrderViewer orderViewer)
+        IOrderSelector orderSelector,
+        IReceiptPrinter receiptPrinter)
     {
         _inputHandler = inputHandler;
         _outputHandler = outputHandler;
         _orderManager = orderManager;
-        _orderViewer = orderViewer;
+        _orderSelector = orderSelector;
+        _receiptPrinter = receiptPrinter;
     }
 
     
@@ -38,7 +43,9 @@ public class ViewOrdersNavigationOptions : INavigationOption
         
         do
         {
-            _orderViewer.View(orders);
+            var order =_orderSelector.Select(orders);
+            
+            _receiptPrinter.Print(order);
 
         } while (_inputHandler.RequestBool("Do you want to view another order?"));
     }
