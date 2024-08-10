@@ -2,52 +2,36 @@ using BurgerBytes.App.Input;
 using BurgerBytes.App.Models;
 using BurgerBytes.App.Output;
 using BurgerBytes.App.Receipts;
+using BurgerBytes.App.Selectors;
 
 namespace BurgerBytes.App.Orders;
 
 public class OrderViewer : IOrderViewer
 {
     private readonly IOutputHandler _outputHandler;
-    private readonly IInputHandler _inputHandler;
     private readonly IReceiptPrinter _receiptPrinter;
+    private readonly IIntSelector _intSelector;
 
-    public OrderViewer(IOutputHandler outputHandler, IInputHandler inputHandler, IReceiptPrinter receiptPrinter)
+    public OrderViewer(IOutputHandler outputHandler, IReceiptPrinter receiptPrinter, IIntSelector intSelector)
     {
         _outputHandler = outputHandler;
-        _inputHandler = inputHandler;
         _receiptPrinter = receiptPrinter;
+        _intSelector = intSelector;
     }
     
     public void View(IReadOnlyCollection<Order> orders)
     {
-        foreach (var order in orders)
+        for (var i = 0; i < orders.Count; i++)
         {
-            _outputHandler.Write($"[{order.Id}]");
-        }
+            var order = orders.ElementAt(i);
             
-        while (true)
-        {
-            var orderId = _inputHandler.RequestInt("Enter an order's id to view the receipt.");
-
-            Order? selectedOrder = null;
-
-            foreach (var order in orders)
-            {
-                if (order.Id == orderId)
-                {
-                    selectedOrder = order;
-                    break;
-                }
-            }
-
-            if (selectedOrder == null)
-            {
-                continue;
-            }
-
-            _receiptPrinter.Print(selectedOrder);
-
-            break;
+            _outputHandler.Write($"[{i + 1}] | Order Id: {order.Id} | Table Number: {order.TableNumber} | Staff Id: {order.StaffId}");
         }
+
+        var orderIndex = _intSelector.Select("Select order", 1, orders.Count) - 1;
+
+        var selectedOrder = orders.ElementAt(orderIndex);
+        
+        _receiptPrinter.Print(selectedOrder);
     }
 }

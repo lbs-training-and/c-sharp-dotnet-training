@@ -1,5 +1,6 @@
 using BurgerBytes.App.Input;
 using BurgerBytes.App.Output;
+using BurgerBytes.App.Selectors;
 
 namespace BurgerBytes.App.Navigation;
 
@@ -7,11 +8,13 @@ public class NavigationOptionSelector : INavigationOptionSelector
 {
     private readonly IInputHandler _inputHandler;
     private readonly IOutputHandler _outputHandler;
+    private readonly IIntSelector _intSelector;
 
-    public NavigationOptionSelector(IInputHandler inputHandler, IOutputHandler outputHandler)
+    public NavigationOptionSelector(IInputHandler inputHandler, IOutputHandler outputHandler, IIntSelector intSelector)
     {
         _inputHandler = inputHandler;
         _outputHandler = outputHandler;
+        _intSelector = intSelector;
     }
 
     public INavigationOption? Select(IReadOnlyCollection<INavigationOption> navigationOptions)
@@ -25,23 +28,10 @@ public class NavigationOptionSelector : INavigationOptionSelector
 
         _outputHandler.Write("[0] | Exit");
 
-        var optionId = _inputHandler.RequestInt("Select option.");
+        var optionId = _intSelector.Select("Select option", 0, navigationOptions.Count);
         
-        while (true)
-        {
-            if (optionId == 0)
-            {
-                return null;
-            }
+        var selectedOption = navigationOptions.ElementAt(optionId - 1);
 
-            if (optionId < 0 || optionId > navigationOptions.Count)
-            {
-                continue;
-            }
-
-            var option = navigationOptions.ElementAt(optionId - 1);
-
-            return option;
-        }
+        return selectedOption;
     }
 }

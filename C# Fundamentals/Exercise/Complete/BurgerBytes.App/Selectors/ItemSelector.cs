@@ -1,5 +1,3 @@
-using BurgerBytes.App.Input;
-using BurgerBytes.App.Items;
 using BurgerBytes.App.Models;
 using BurgerBytes.App.Output;
 
@@ -7,21 +5,23 @@ namespace BurgerBytes.App.Selectors;
 
 public class ItemSelector : IItemSelector
 {
-    private readonly IInputHandler _inputHandler;
     private readonly IOutputHandler _outputHandler;
+    private readonly IIntSelector _intSelector;
 
-    public ItemSelector(IInputHandler inputHandler, IOutputHandler outputHandler)
+    public ItemSelector(IOutputHandler outputHandler, IIntSelector intSelector)
     {
-        _inputHandler = inputHandler;
         _outputHandler = outputHandler;
+        _intSelector = intSelector;
     }
 
     public OrderItem SelectItem(IReadOnlyCollection<Item> items)
     {
         DisplayMenu(items);
-
-        var item = GetItem(items);
-        var quantity = SelectQuantity(item);
+        
+        var itemIndex = _intSelector.Select("Select item.", 1, items.Count) - 1;
+        var item = items.ElementAt(itemIndex);
+        
+        var quantity = _intSelector.Select($"Enter {item.Name} quantity.", 0, 100);
 
         var orderItem = new OrderItem
         {
@@ -42,36 +42,6 @@ public class ItemSelector : IItemSelector
             var item = items.ElementAt(i);
 
             _outputHandler.Write($"[{i + 1}] | {item.Name}");
-        }
-    }
-
-    private Item GetItem(IReadOnlyCollection<Item> items)
-    {
-        while (true)
-        {
-            var optionId = _inputHandler.RequestInt("Select item.");
-
-            if (optionId <= 0 || optionId > items.Count)
-            {
-                continue;
-            }
-
-            return items.ElementAt(optionId - 1);
-        }
-    }
-
-    private int SelectQuantity(Item item)
-    {
-        while (true)
-        {
-            var quantity = _inputHandler.RequestInt($"Enter {item.Name} quantity.");
-
-            if (quantity > 0)
-            {
-                return quantity;
-            }
-            
-            _outputHandler.Write("Quantity must be greater than 0.");
         }
     }
 }

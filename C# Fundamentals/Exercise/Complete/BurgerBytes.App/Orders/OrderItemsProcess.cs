@@ -22,35 +22,25 @@ public class OrderItemsProcess : IOrderItemsProcess
     public ICollection<OrderItem> TakeOrderItems()
     {
         var items = _menu.GetItems();
-        var orderItems = new List<OrderItem>();
+
+        var orderItems = new Dictionary<int, OrderItem>();
         
         do
         {
             var orderItem = _itemSelector.SelectItem(items);
 
-            var exists = false;
-
-            foreach (var existingOrderItem in orderItems)
+            if (orderItems.TryGetValue(orderItem.ItemId, out var existingOrderItem))
             {
-                if (orderItem.ItemId != existingOrderItem.ItemId)
-                {
-                    continue;
-                }
-                
                 existingOrderItem.Quantity += orderItem.Quantity;
                 existingOrderItem.TotalPrice += orderItem.TotalPrice;
-
-                exists = true;
-                break;
             }
-
-            if (!exists)
+            else
             {
-                orderItems.Add(orderItem);
+                orderItems.Add(orderItem.ItemId, orderItem);
             }
             
         } while (_inputHandler.RequestBool("Add another item?"));
 
-        return orderItems;
+        return orderItems.Values.ToList();
     }
 }

@@ -20,18 +20,18 @@ public class Program
         var outputHandler = new ConsoleOutputHandler();
         var inputHandler = new ConsoleInputHandler(outputHandler);
 
-        var navigationOptionSelector = new NavigationOptionSelector(inputHandler, outputHandler);
-
-        var itemSelector = new ItemSelector(inputHandler, outputHandler);
-
         var intSelector = new IntSelector(inputHandler, outputHandler);
         var decimalSelector = new DecimalSelector(inputHandler, outputHandler);
+        
+        var navigationOptionSelector = new NavigationOptionSelector(inputHandler, outputHandler, intSelector);
+        
+        var itemSelector = new ItemSelector(outputHandler, intSelector);
 
         var receiptPrinter = new OutputReceiptPrinter(outputHandler, currencyProvider);
         
         var orderItemsProcess = new OrderItemsProcess(menu, itemSelector, inputHandler);
         var orderProcess = new OrderProcess(intSelector, decimalSelector, currencyProvider, orderItemsProcess);
-        var orderViewer = new OrderViewer(outputHandler, inputHandler, receiptPrinter);
+        var orderViewer = new OrderViewer(outputHandler, receiptPrinter, intSelector);
             
         
         var navigationOptions = new INavigationOption[]
