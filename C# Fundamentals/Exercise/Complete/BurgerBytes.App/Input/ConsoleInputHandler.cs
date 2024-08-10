@@ -28,7 +28,7 @@ public class ConsoleInputHandler : IInputHandler
                 return value;
             }
             
-            _outputHandler.Write("Enter a valid whole number.");
+            _outputHandler.Write("Enter a whole number.");
         }
     }
 
@@ -68,7 +68,7 @@ public class ConsoleInputHandler : IInputHandler
                 return value;
             }
             
-            _outputHandler.Write("Enter a valid whole number.");
+            _outputHandler.Write("Enter a number.");
         }
     }
 }
