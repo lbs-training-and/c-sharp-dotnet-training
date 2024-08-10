@@ -18,8 +18,8 @@ public class ItemSelector : IItemSelector
     {
         DisplayMenu(items);
         
-        var itemIndex = _intSelector.Select("Select item.", 1, items.Count) - 1;
-        var item = items.ElementAt(itemIndex);
+        var optionId = _intSelector.Select("Select item.", 1, items.Count);
+        var item = items.ElementAt(optionId - 1);
         
         var quantity = _intSelector.Select($"Enter {item.Name} quantity.", 0, 100);
 

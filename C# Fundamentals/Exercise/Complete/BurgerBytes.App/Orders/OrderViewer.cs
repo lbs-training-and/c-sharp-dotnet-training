@@ -28,9 +28,9 @@ public class OrderViewer : IOrderViewer
             _outputHandler.Write($"[{i + 1}] | Order Id: {order.Id} | Table Number: {order.TableNumber} | Staff Id: {order.StaffId}");
         }
 
-        var orderIndex = _intSelector.Select("Select order", 1, orders.Count) - 1;
+        var optionId = _intSelector.Select("Select order", 1, orders.Count);
 
-        var selectedOrder = orders.ElementAt(orderIndex);
+        var selectedOrder = orders.ElementAt(optionId - 1);
         
         _receiptPrinter.Print(selectedOrder);
     }

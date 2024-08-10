@@ -29,7 +29,7 @@ public class OutputReceiptPrinter : IReceiptPrinter
 
         foreach (var item in order.OrderItems)
         {
-            _outputHandler.Write($"{item.Name} x{item.Quantity} = {currencySymbol}{item.TotalPrice}");
+            _outputHandler.Write($"{item.Name} x{item.Quantity}: {currencySymbol}{item.TotalPrice}");
         }
         
         _outputHandler.Write("---");
