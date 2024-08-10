@@ -27,15 +27,17 @@ public class Program
         var intSelector = new IntSelector(inputHandler, outputHandler);
         var decimalSelector = new DecimalSelector(inputHandler, outputHandler);
 
+        var receiptPrinter = new OutputReceiptPrinter(outputHandler, currencyProvider);
+        
         var orderItemsProcess = new OrderItemsProcess(menu, itemSelector, inputHandler);
         var orderProcess = new OrderProcess(intSelector, decimalSelector, currencyProvider, orderItemsProcess);
-        
-        var receiptPrinter = new OutputReceiptPrinter(outputHandler, currencyProvider);
+        var orderViewer = new OrderViewer(outputHandler, inputHandler, receiptPrinter);
+            
         
         var navigationOptions = new INavigationOption[]
         {
             new CreateOrderNavigationOption(inputHandler, orderManager, orderProcess, receiptPrinter),
-            new ViewOrdersNavigationOptions(inputHandler, outputHandler, orderManager, receiptPrinter)
+            new ViewOrdersNavigationOptions(inputHandler, outputHandler, orderManager, orderViewer)
         };
         
         var navigator = new Navigator(navigationOptionSelector, navigationOptions);

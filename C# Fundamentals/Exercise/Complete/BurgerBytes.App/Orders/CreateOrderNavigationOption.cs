@@ -29,7 +29,7 @@ public class CreateOrderNavigationOption : INavigationOption
     {
         do
         {
-            var order = _orderProcess.Create();
+            var order = _orderProcess.TakeOrder();
 
             _orderManager.Add(order);
 

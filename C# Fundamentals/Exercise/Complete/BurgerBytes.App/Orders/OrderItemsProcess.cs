@@ -19,7 +19,7 @@ public class OrderItemsProcess : IOrderItemsProcess
         _inputHandler = inputHandler;
     }
     
-    public ICollection<OrderItem> Order()
+    public ICollection<OrderItem> TakeOrderItems()
     {
         var items = _menu.GetItems();
         var orderItems = new List<OrderItem>();

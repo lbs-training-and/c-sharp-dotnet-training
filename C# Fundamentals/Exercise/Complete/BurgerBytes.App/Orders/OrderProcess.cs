@@ -1,6 +1,4 @@
 using BurgerBytes.App.Currency;
-using BurgerBytes.App.Input;
-using BurgerBytes.App.Items;
 using BurgerBytes.App.Models;
 using BurgerBytes.App.Selectors;
 
@@ -21,14 +19,14 @@ public class OrderProcess : IOrderProcess
         _orderItemsProcess = orderItemsProcess;
     }
     
-    public Order Create()
+    public Order TakeOrder()
     {
         var staffId = _intSelector.Select("Enter staff id", 1, 26);
         var tableNumber = _intSelector.Select("Enter table number", 1, 50);
 
         var subTotal = 0m;
 
-        var orderItems = _orderItemsProcess.Order();
+        var orderItems = _orderItemsProcess.TakeOrderItems();
 
         foreach (var orderItem in orderItems)
         {

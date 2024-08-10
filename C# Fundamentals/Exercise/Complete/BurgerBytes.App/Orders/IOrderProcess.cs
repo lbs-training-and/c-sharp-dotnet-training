@@ -4,5 +4,5 @@ namespace BurgerBytes.App.Orders;
 
 public interface IOrderProcess
 {
-    Order Create();
+    Order TakeOrder();
 }

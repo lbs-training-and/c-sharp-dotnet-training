@@ -4,5 +4,5 @@ namespace BurgerBytes.App.Orders;
 
 public interface IOrderItemsProcess
 {
-    ICollection<OrderItem> Order();
+    ICollection<OrderItem> TakeOrderItems();
 }
