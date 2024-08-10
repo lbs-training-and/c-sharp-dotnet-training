@@ -13,5 +13,8 @@ public class Menu : IMenu
         new() { Id = 5, Name = "StackShake", Price = 3.50m }
     ];
 
-    public IReadOnlyCollection<Item> GetItems() => _items;
+    public IReadOnlyCollection<Item> GetItems()
+    {
+        return _items;
+    } 
 }
