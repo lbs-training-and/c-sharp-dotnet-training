@@ -1,8 +1,8 @@
 namespace CSharpDesignPatterns.MethodFactory.Models;
 
-public class Dog : Animal
+internal class Dog : Animal
 {
-    public override void Speak()
+    internal override void Speak()
     {
         Console.WriteLine("Woof!");
     }

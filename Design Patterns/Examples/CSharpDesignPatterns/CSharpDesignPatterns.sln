@@ -8,6 +8,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Behavioural", "Behavioural"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Structural", "Structural", "{6FC2578F-B0F7-4ED6-BE58-F25A3E223DDB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSharpDesignPatterns.AbstractFactory", "CSharpDesignPatterns.AbstractFactory\CSharpDesignPatterns.AbstractFactory.csproj", "{9426E61F-D956-4E37-AE7A-A043560246C4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,8 +20,13 @@ Global
 		{EDF2ABD7-74D1-498D-9AFA-EE18D79F604F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EDF2ABD7-74D1-498D-9AFA-EE18D79F604F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EDF2ABD7-74D1-498D-9AFA-EE18D79F604F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9426E61F-D956-4E37-AE7A-A043560246C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9426E61F-D956-4E37-AE7A-A043560246C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9426E61F-D956-4E37-AE7A-A043560246C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9426E61F-D956-4E37-AE7A-A043560246C4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EDF2ABD7-74D1-498D-9AFA-EE18D79F604F} = {48AF9F3E-ED99-4C50-ABFE-A6BE4C7D126C}
+		{9426E61F-D956-4E37-AE7A-A043560246C4} = {48AF9F3E-ED99-4C50-ABFE-A6BE4C7D126C}
 	EndGlobalSection
 EndGlobal

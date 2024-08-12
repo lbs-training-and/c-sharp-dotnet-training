@@ -1,6 +1,6 @@
 namespace CSharpDesignPatterns.MethodFactory.Models;
 
-public abstract class Animal
+internal abstract class Animal
 {
-    public abstract void Speak();
+    internal abstract void Speak();
 }
