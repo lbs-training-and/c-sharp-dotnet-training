@@ -9,6 +9,7 @@ namespace AzureFunction.Challenge.Function.Core.Entities
         public Address BillingAddress { get; set; }
         public string Email { get; set; }
         public string Phone { get; set; }
+        public DateTime DeliveryTime { get; set; }
         public ICollection<OrderProduct> OrderProducts { get; set; }
     }
 }

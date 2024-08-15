@@ -3,6 +3,7 @@ using System;
 using AzureFunction.Challenge.Function;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AzureFunction.Challenge.Function.Migrations
 {
     [DbContext(typeof(AzureFunctionDbContext))]
-    partial class AzureFunctionDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240815105917_DeliveryTime")]
+    partial class DeliveryTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "8.0.8");

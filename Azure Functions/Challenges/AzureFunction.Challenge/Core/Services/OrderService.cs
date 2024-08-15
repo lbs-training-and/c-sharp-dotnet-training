@@ -3,6 +3,7 @@ using AzureFunction.Challenge.Function.Core.Interfaces;
 using AzureFunction.Challenge.Function.Core.Models;
 using AzureFunction.Challenge.Function.Core.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace AzureFunction.Challenge.Function.Core.Services
 {
@@ -44,6 +45,7 @@ namespace AzureFunction.Challenge.Function.Core.Services
                 },
                 Email = orderDto.Email,
                 Phone = orderDto.Phone,
+                DeliveryTime = GetDeliveryTime(),
                 OrderProducts = orderDto.OrderProducts.Select(op => new OrderProduct
                 {
                     Quantity = op.Quantity,
@@ -60,7 +62,7 @@ namespace AzureFunction.Challenge.Function.Core.Services
             return new OrderResponseDto
             {
                 Id = entityEntry.Entity.Id,
-                DeliveryTime = GetDeliveryTime()
+                DeliveryTime = entityEntry.Entity.DeliveryTime
             };
         }
 
@@ -77,6 +79,7 @@ namespace AzureFunction.Challenge.Function.Core.Services
                 BillingAddress = result.BillingAddress,
                 Email = result.Email,
                 Phone = result.Phone,
+                DeliveryTime= result.DeliveryTime,
                 OrderProducts = result.OrderProducts.Select(orderProduct => new OrderProductDto
                 {
                     Quantity = orderProduct.Quantity,
