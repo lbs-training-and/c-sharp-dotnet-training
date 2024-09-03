@@ -254,13 +254,15 @@ Or through your console using `func start`
 #### Response Format
 ```json
 {
-    "OrderId": int
+    "id": int,
+    "deliveryTime": string
 }
 ```
 
 #### Response Example
 ```json
 {
-    "OrderId": 123
+    "id": 123,
+    "deliveryTime": "2024-09-26T01:30:00.000Z"
 }
 ```
