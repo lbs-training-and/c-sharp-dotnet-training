@@ -4,5 +4,5 @@ public interface INavigationOption
 {
     string DisplayName { get; }
 
-    void Enter();
+    Task EnterAsync();
 }

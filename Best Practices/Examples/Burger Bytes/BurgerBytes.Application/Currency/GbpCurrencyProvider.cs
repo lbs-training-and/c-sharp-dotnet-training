@@ -1,7 +1,13 @@
 namespace BurgerBytes.App.Currency;
 
-public class CurrencyProvider : ICurrencyProvider
+public class GbpCurrencyProvider : ICurrencyProvider
 {
-    public string Symbol => "£";
-    public int Scale => 2;
+    private Currency _currency = new()
+    {
+        Symbol = "£",
+        Scale = 2
+    };
+
+
+    public Task<Currency> GetAsync() => Task.FromResult(_currency);
 }

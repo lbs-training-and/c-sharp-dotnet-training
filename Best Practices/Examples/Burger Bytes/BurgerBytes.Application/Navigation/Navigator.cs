@@ -15,7 +15,7 @@ public class Navigator : INavigator
         _navigationOptions = navigationOptions.ToArray();
     }
 
-    public void Navigate()
+    public async Task NavigateAsync()
     {
         while (true)
         {
@@ -26,7 +26,7 @@ public class Navigator : INavigator
                 return;
             }
 
-            navigationOption.Enter();
+            await navigationOption.EnterAsync();
         }
     }
 }

@@ -13,8 +13,5 @@ public class HardCodedMenu : IMenu
         new() { Id = 5, Name = "StackShake", Price = 3.50m }
     ];
 
-    public IReadOnlyCollection<Item> GetItems()
-    {
-        return _items;
-    } 
+    public Task<IReadOnlyCollection<Item>> GetItemsAsync() => Task.FromResult(_items);
 }

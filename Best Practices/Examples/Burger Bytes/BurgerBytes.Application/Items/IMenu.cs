@@ -4,5 +4,5 @@ namespace BurgerBytes.App.Items;
 
 public interface IMenu
 {
-    IReadOnlyCollection<Item> GetItems();
+    Task<IReadOnlyCollection<Item>> GetItemsAsync();
 }

@@ -25,15 +25,15 @@ public class CreateOrderNavigationOption : INavigationOption
 
     public string DisplayName => "Create Order";
 
-    public void Enter()
+    public async Task EnterAsync()
     {
         do
         {
-            var order = _orderProcess.TakeOrder();
+            var order = await _orderProcess.TakeOrderAsync();
 
             _orderManager.Add(order);
 
-            _receiptPrinter.Print(order);
+            await _receiptPrinter.PrintAsync(order);
 
         } while (_inputHandler.RequestBool("Do you want to placed another order?"));
     }

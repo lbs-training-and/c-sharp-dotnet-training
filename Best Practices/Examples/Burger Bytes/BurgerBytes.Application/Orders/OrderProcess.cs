@@ -28,13 +28,14 @@ public class OrderProcess : IOrderProcess
         _serviceProvider = serviceProvider;
     }
     
-    public Order TakeOrder()
+    public async Task<Order> TakeOrderAsync()
     {
         using var scope = _serviceProvider.CreateScope();
 
         var menu = scope.ServiceProvider.GetRequiredService<IMenu>();
 
-        var menuItems = menu.GetItems();
+        var menuItems = await menu.GetItemsAsync();
+        var currency = await _currencyProvider.GetAsync();
         
         var staffId = _intSelector.Select("Enter staff id", 1, 26);
         var tableNumber = _intSelector.Select("Enter table number", 1, 50);
@@ -43,9 +44,9 @@ public class OrderProcess : IOrderProcess
 
         var subTotal = orderItems.Sum(orderItem => orderItem.TotalPrice);
 
-        var tip = _decimalSelector.Select("Enter a tip", 0, 100, _currencyProvider.Scale);
+        var tip = _decimalSelector.Select("Enter a tip", 0, 100, currency.Scale);
 
-        var tipAmount = Math.Round(tip / 100 * subTotal, _currencyProvider.Scale);
+        var tipAmount = Math.Round(tip / 100 * subTotal, currency.Scale);
 
         var grandTotal = subTotal + tipAmount;
         

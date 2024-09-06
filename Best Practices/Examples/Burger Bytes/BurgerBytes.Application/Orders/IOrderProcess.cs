@@ -4,5 +4,5 @@ namespace BurgerBytes.App.Orders;
 
 public interface IOrderProcess
 {
-    Order TakeOrder();
+    Task<Order> TakeOrderAsync();
 }

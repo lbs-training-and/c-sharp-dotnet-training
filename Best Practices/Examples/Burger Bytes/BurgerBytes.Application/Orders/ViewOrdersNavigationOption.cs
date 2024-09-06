@@ -31,7 +31,7 @@ public class ViewOrdersNavigationOptions : INavigationOption
     
     public string DisplayName => "View Orders";
 
-    public void Enter()
+    public async Task EnterAsync()
     {
         var orders = _orderManager.GetAll();
 
@@ -45,7 +45,7 @@ public class ViewOrdersNavigationOptions : INavigationOption
         {
             var order =_orderSelector.Select(orders);
             
-            _receiptPrinter.Print(order);
+            await _receiptPrinter.PrintAsync(order);
 
         } while (_inputHandler.RequestBool("Do you want to view another order?"));
     }

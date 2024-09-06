@@ -20,5 +20,5 @@ public class LiveMenu : IMenu
         };
     }
 
-    public IReadOnlyCollection<Item> GetItems() => _items;
+    public Task<IReadOnlyCollection<Item>> GetItemsAsync() => Task.FromResult(_items);
 }

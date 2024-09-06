@@ -4,5 +4,5 @@ namespace BurgerBytes.App.Receipts;
 
 public interface IReceiptPrinter
 {
-    void Print(Order order);
+    Task PrintAsync(Order order);
 }

@@ -13,11 +13,11 @@ namespace BurgerBytes.App;
 
 public class Program
 {
-    public static void Main(string[] args)
+    public static Task Main(string[] args)
     {
         IServiceProvider container = new ServiceCollection()
             .AddScoped<IMenu, LiveMenu>()
-            .AddSingleton<ICurrencyProvider, CurrencyProvider>()
+            .AddSingleton<ICurrencyProvider, GbpCurrencyProvider>()
             .AddSingleton<IOrderManager, OrderManager>()
             .AddSingleton<IOutputHandler, ConsoleOutputHandler>()
             .AddSingleton<IInputHandler, ConsoleInputHandler>()
@@ -47,6 +47,6 @@ public class Program
         
         var navigator = container.GetRequiredService<INavigator>();
         
-        navigator.Navigate();
+        return navigator.NavigateAsync();
     }
 }

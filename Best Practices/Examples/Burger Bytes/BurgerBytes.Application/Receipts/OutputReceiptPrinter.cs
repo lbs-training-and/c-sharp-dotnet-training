@@ -15,9 +15,9 @@ public class OutputReceiptPrinter : IReceiptPrinter
         _currencyProvider = currencyProvider;
     }
     
-    public void Print(Order order)
+    public async Task PrintAsync(Order order)
     {
-        var currencySymbol = _currencyProvider.Symbol;
+        var currency = await _currencyProvider.GetAsync();
         
         _outputHandler.Write("------------------------------");
         _outputHandler.Write("BurgerBytes: Order Receipt");
@@ -29,14 +29,14 @@ public class OutputReceiptPrinter : IReceiptPrinter
 
         foreach (var item in order.OrderItems)
         {
-            _outputHandler.Write($"{item.Name} x{item.Quantity}: {currencySymbol}{item.TotalPrice}");
+            _outputHandler.Write($"{item.Name} x{item.Quantity}: {currency.Symbol}{item.TotalPrice}");
         }
         
         _outputHandler.Write("---");
         
-        _outputHandler.Write($"Sub Total: {currencySymbol}{order.SubTotal}");
-        _outputHandler.Write($"Tip: {order.Tip}% @ {currencySymbol}{order.TipAmount}");
-        _outputHandler.Write($"Grand Total: {currencySymbol}{order.GrandTotal}");
+        _outputHandler.Write($"Sub Total: {currency.Symbol}{order.SubTotal}");
+        _outputHandler.Write($"Tip: {order.Tip}% @ {currency.Symbol}{order.TipAmount}");
+        _outputHandler.Write($"Grand Total: {currency.Symbol}{order.GrandTotal}");
         
         _outputHandler.Write("------------------------------");
     }
