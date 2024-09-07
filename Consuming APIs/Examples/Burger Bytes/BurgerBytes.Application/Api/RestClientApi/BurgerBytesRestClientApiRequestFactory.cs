@@ -2,13 +2,13 @@ using BurgerBytes.App.Api.Models;
 using Microsoft.Extensions.Options;
 using RestSharp;
 
-namespace BurgerBytes.App.Api;
+namespace BurgerBytes.App.Api.RestClientApi;
 
-public class BurgerBytesApiRequestFactory : IBurgerBytesApiRequestFactory
+public class BurgerBytesRestClientApiRequestFactory : IBurgerBytesRestClientApiRequestFactory
 {
     private readonly IOptions<BurgerBytesApiSettings> _options;
 
-    public BurgerBytesApiRequestFactory(IOptions<BurgerBytesApiSettings> options)
+    public BurgerBytesRestClientApiRequestFactory(IOptions<BurgerBytesApiSettings> options)
     {
         _options = options;
     }

@@ -1,5 +1,7 @@
 ﻿using BurgerBytes.App.Api;
+using BurgerBytes.App.Api.HttpClientApi;
 using BurgerBytes.App.Api.Models;
+using BurgerBytes.App.Api.RestClientApi;
 using BurgerBytes.App.Currency;
 using BurgerBytes.App.Input;
 using BurgerBytes.App.Items;
@@ -51,10 +53,11 @@ public class Program
                 c.AddJsonConsole(b => { b.IncludeScopes = true; });
             })
             .Configure<BurgerBytesApiSettings>(configuration.GetRequiredSection("BurgerBytesApi"))
-            .AddSingleton<IBurgerBytesApiRequestFactory, BurgerBytesApiRequestFactory>()
-            .AddSingleton<IBurgerBytesApi, BurgerBytesApi>()
+            .AddSingleton<IBurgerBytesRestClientApiRequestFactory, BurgerBytesRestClientApiRequestFactory>()
+            //.AddSingleton<IBurgerBytesApi, BurgerBytesRestClientApi>()
+            .AddSingleton<IBurgerBytesHttpClientApiRequestFactory, BurgerBytesHttpClientApiRequestFactory>()
+            .AddSingleton<IBurgerBytesApi, BurgerBytesHttpClientApi>()
             .AddHttpClient()
-            .AddSingleton<IRestClient>(sp => new RestClient(sp.GetRequiredService<HttpClient>()))
             .BuildServiceProvider();
 
         var logger = container.GetRequiredService<ILogger<Program>>();

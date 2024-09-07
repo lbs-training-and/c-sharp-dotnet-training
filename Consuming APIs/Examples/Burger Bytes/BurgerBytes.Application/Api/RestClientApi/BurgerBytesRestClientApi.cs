@@ -1,16 +1,19 @@
 using BurgerBytes.App.Api.Models;
 using RestSharp;
+using RestSharp.Serializers;
 
-namespace BurgerBytes.App.Api;
+namespace BurgerBytes.App.Api.RestClientApi;
 
-public class BurgerBytesApi : IBurgerBytesApi
+public class BurgerBytesRestClientApi : IBurgerBytesApi
 {
     private readonly IRestClient _restClient;
-    private readonly IBurgerBytesApiRequestFactory _requestFactory;
+    private readonly IBurgerBytesRestClientApiRequestFactory _requestFactory;
 
-    public BurgerBytesApi(IRestClient restClient, IBurgerBytesApiRequestFactory requestFactory)
+    public BurgerBytesRestClientApi(HttpClient httpClient, IBurgerBytesRestClientApiRequestFactory requestFactory)
     {
-        _restClient = restClient;
+        // Recommended by RestSharp to use one instance per API
+        // https://restsharp.dev/migration/#recommended-usage
+        _restClient = new RestClient(httpClient);
         _requestFactory = requestFactory;
     }
 
