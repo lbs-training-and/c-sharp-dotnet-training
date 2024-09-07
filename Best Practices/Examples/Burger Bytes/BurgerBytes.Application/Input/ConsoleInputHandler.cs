@@ -1,20 +1,28 @@
 using BurgerBytes.App.Output;
+using Microsoft.Extensions.Logging;
 
 namespace BurgerBytes.App.Input;
 
 public class ConsoleInputHandler : IInputHandler
 {
     private readonly IOutputHandler _outputHandler;
+    private readonly ILogger<ConsoleInputHandler> _logger;
 
-    public ConsoleInputHandler(IOutputHandler outputHandler)
+    public ConsoleInputHandler(IOutputHandler outputHandler, ILogger<ConsoleInputHandler> logger)
     {
         _outputHandler = outputHandler;
+        _logger = logger;
     }
 
     public string? Request(string message)
     {
         _outputHandler.Write(message);
-        return Console.ReadLine();
+        
+        var input = Console.ReadLine();
+
+        _logger.LogTrace("Input handled. Value: {Value}", input);
+        
+        return input;
     }
 
     public int RequestInt(string message)

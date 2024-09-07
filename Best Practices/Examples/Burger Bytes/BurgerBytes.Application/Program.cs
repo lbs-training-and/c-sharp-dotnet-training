@@ -1,4 +1,5 @@
-﻿using BurgerBytes.App.Currency;
+﻿using System.Text.Json;
+using BurgerBytes.App.Currency;
 using BurgerBytes.App.Input;
 using BurgerBytes.App.Items;
 using BurgerBytes.App.Navigation;
@@ -36,7 +37,7 @@ public class Program
             .AddSingleton(Random.Shared)
             .AddLogging(c =>
             {
-                c.SetMinimumLevel(LogLevel.Information);
+                c.SetMinimumLevel(LogLevel.Trace);
                 
                 c.AddJsonConsole(b =>
                 {
@@ -44,6 +45,12 @@ public class Program
                 });
             })
             .BuildServiceProvider();
+
+        var logger = container.GetRequiredService<ILogger<Program>>();
+        
+        using var _ = logger.BeginScope("Machine Name: {MachineName}", Environment.MachineName);
+        
+        logger.LogInformation("Application started.");
         
         var navigator = container.GetRequiredService<INavigator>();
         
