@@ -37,7 +37,7 @@ public class Program
             .AddSingleton(Random.Shared)
             .AddLogging(c =>
             {
-                c.SetMinimumLevel(LogLevel.Trace);
+                c.SetMinimumLevel(LogLevel.Information);
                 
                 c.AddJsonConsole(b =>
                 {
