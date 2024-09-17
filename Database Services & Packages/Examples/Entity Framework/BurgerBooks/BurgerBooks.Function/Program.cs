@@ -1,4 +1,3 @@
-using System.Text.Json;
 using BurgerBooks.Function.Database;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.EntityFrameworkCore;

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BurgerBooks.Api.Migrations
+namespace BurgerBooks.Function.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration
@@ -38,7 +38,7 @@ namespace BurgerBooks.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Order",
+                name: "Orders",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -54,7 +54,7 @@ namespace BurgerBooks.Api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Order", x => x.Id);
+                    table.PrimaryKey("PK_Orders", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -96,9 +96,9 @@ namespace BurgerBooks.Api.Migrations
                 {
                     table.PrimaryKey("PK_ShippingAddresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShippingAddresses_Order_Id",
+                        name: "FK_ShippingAddresses_Orders_Id",
                         column: x => x.Id,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -148,9 +148,9 @@ namespace BurgerBooks.Api.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_OrderBooks_Order_OrderId",
+                        name: "FK_OrderBooks_Orders_OrderId",
                         column: x => x.OrderId,
-                        principalTable: "Order",
+                        principalTable: "Orders",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -195,7 +195,7 @@ namespace BurgerBooks.Api.Migrations
                 name: "Books");
 
             migrationBuilder.DropTable(
-                name: "Order");
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Genres");

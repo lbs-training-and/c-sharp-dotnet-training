@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace BurgerBooks.Api.Migrations
+namespace BurgerBooks.Function.Migrations
 {
     [DbContext(typeof(BurgerBooksDbContext))]
-    [Migration("20240917101122_Initial")]
+    [Migration("20240917170758_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -40,7 +40,7 @@ namespace BurgerBooks.Api.Migrations
                     b.ToTable("AuthorBook");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Author", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Author", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -58,7 +58,7 @@ namespace BurgerBooks.Api.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Book", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Book", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -88,7 +88,7 @@ namespace BurgerBooks.Api.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Genre", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Genre", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -106,7 +106,7 @@ namespace BurgerBooks.Api.Migrations
                     b.ToTable("Genres");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Order", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Order", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -120,10 +120,10 @@ namespace BurgerBooks.Api.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Order");
+                    b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.OrderBook", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.OrderBook", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -153,7 +153,7 @@ namespace BurgerBooks.Api.Migrations
                     b.ToTable("OrderBooks");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.ShippingAddress", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.ShippingAddress", b =>
                 {
                     b.Property<int>("Id")
                         .HasColumnType("int");
@@ -198,22 +198,22 @@ namespace BurgerBooks.Api.Migrations
 
             modelBuilder.Entity("AuthorBook", b =>
                 {
-                    b.HasOne("BurgerBooks.Api.Database.Entities.Author", null)
+                    b.HasOne("BurgerBooks.Function.Database.Entities.Author", null)
                         .WithMany()
                         .HasForeignKey("AuthorsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("BurgerBooks.Api.Database.Entities.Book", null)
+                    b.HasOne("BurgerBooks.Function.Database.Entities.Book", null)
                         .WithMany()
                         .HasForeignKey("BooksId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Book", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Book", b =>
                 {
-                    b.HasOne("BurgerBooks.Api.Database.Entities.Genre", "Genre")
+                    b.HasOne("BurgerBooks.Function.Database.Entities.Genre", "Genre")
                         .WithMany("Books")
                         .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -222,9 +222,9 @@ namespace BurgerBooks.Api.Migrations
                     b.Navigation("Genre");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Order", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Order", b =>
                 {
-                    b.OwnsOne("BurgerBooks.Api.Database.Entities.BillingAddress", "BillingAddress", b1 =>
+                    b.OwnsOne("BurgerBooks.Function.Database.Entities.BillingAddress", "BillingAddress", b1 =>
                         {
                             b1.Property<int>("OrderId")
                                 .HasColumnType("int");
@@ -264,7 +264,7 @@ namespace BurgerBooks.Api.Migrations
 
                             b1.HasKey("OrderId");
 
-                            b1.ToTable("Order");
+                            b1.ToTable("Orders");
 
                             b1.WithOwner()
                                 .HasForeignKey("OrderId");
@@ -274,15 +274,15 @@ namespace BurgerBooks.Api.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.OrderBook", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.OrderBook", b =>
                 {
-                    b.HasOne("BurgerBooks.Api.Database.Entities.Book", "Book")
+                    b.HasOne("BurgerBooks.Function.Database.Entities.Book", "Book")
                         .WithMany("BookOrders")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("BurgerBooks.Api.Database.Entities.Order", "Order")
+                    b.HasOne("BurgerBooks.Function.Database.Entities.Order", "Order")
                         .WithMany("OrderBooks")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -293,28 +293,26 @@ namespace BurgerBooks.Api.Migrations
                     b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.ShippingAddress", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.ShippingAddress", b =>
                 {
-                    b.HasOne("BurgerBooks.Api.Database.Entities.Order", "Order")
+                    b.HasOne("BurgerBooks.Function.Database.Entities.Order", null)
                         .WithOne("ShippingAddress")
-                        .HasForeignKey("BurgerBooks.Api.Database.Entities.ShippingAddress", "Id")
+                        .HasForeignKey("BurgerBooks.Function.Database.Entities.ShippingAddress", "Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Order");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Book", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Book", b =>
                 {
                     b.Navigation("BookOrders");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Genre", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Genre", b =>
                 {
                     b.Navigation("Books");
                 });
 
-            modelBuilder.Entity("BurgerBooks.Api.Database.Entities.Order", b =>
+            modelBuilder.Entity("BurgerBooks.Function.Database.Entities.Order", b =>
                 {
                     b.Navigation("OrderBooks");
 

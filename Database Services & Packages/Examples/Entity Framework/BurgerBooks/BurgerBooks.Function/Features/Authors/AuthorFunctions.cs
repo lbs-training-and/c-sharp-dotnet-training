@@ -1,7 +1,6 @@
 using BurgerBooks.Function.Database;
 using BurgerBooks.Function.Database.Entities;
 using BurgerBooks.Function.Features.Authors.Models;
-using BurgerBooks.Function.Features.Genres;
 using BurgerBooks.Function.Features.Genres.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -42,9 +41,7 @@ public class AuthorFunctions
 
         _logger.LogInformation("Author created. Id: {Id}", author.Id);
 
-        dto.Id = author.Id;
-
-        return new OkObjectResult(dto);
+        return new OkObjectResult(new IdDto(author.Id));
     }
 
     [Function("GetAuthors")]

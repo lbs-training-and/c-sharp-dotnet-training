@@ -39,9 +39,7 @@ public class GenreFunctions
 
         _logger.LogInformation("Genre created. Id: {Id}", genre.Id);
 
-        dto.Id = genre.Id;
-
-        return new OkObjectResult(dto);
+        return new OkObjectResult(new IdDto(genre.Id));
     }
 
     [Function("GetGenres")]

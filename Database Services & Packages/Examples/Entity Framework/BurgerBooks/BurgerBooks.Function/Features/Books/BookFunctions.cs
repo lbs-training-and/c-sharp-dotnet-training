@@ -1,10 +1,7 @@
 using BurgerBooks.Function.Database;
 using BurgerBooks.Function.Database.Entities;
 using BurgerBooks.Function.Features.Books.Models;
-using BurgerBooks.Function.Features.Genres;
-using BurgerBooks.Function.Features.Genres.Models;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.EntityFrameworkCore;
@@ -62,9 +59,7 @@ public class BookFunctions
 
         _logger.LogInformation("Book created. Id: {Id}", genre.Id);
 
-        dto.Id = book.Id;
-
-        return new OkObjectResult(dto);
+        return new OkObjectResult(new IdDto(book.Id));
     }
     
     [Function("GetBooks")]
