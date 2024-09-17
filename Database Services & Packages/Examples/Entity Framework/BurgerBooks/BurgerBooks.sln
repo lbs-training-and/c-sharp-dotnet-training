@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerBooks.Api", "BurgerBooks.Api\BurgerBooks.Api.csproj", "{F6EF2DA2-EA63-44D0-8295-87DAF67EA52E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BurgerBooks.Function", "BurgerBooks.Function\BurgerBooks.Function.csproj", "{F6EF2DA2-EA63-44D0-8295-87DAF67EA52E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
